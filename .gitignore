@@ -12,3 +12,5 @@
 /Services/Money/obj
 /Services/ServiceTemplate/bin/Debug/netcoreapp3.1
 /Services/ServiceTemplate/obj
+/Test/EasyNetQTest/bin/Debug/netcoreapp3.1
+/Test/EasyNetQTest/obj
