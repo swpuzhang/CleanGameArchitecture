@@ -2,3 +2,13 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 /.vs
+/Commons/bin/Debug/netcoreapp3.1
+/Commons/obj
+/Messages/bin/Debug/netcoreapp3.1
+/Messages/obj
+/Services/Account/bin/Debug/netcoreapp3.1
+/Services/Account/obj
+/Services/Money/bin/Debug/netcoreapp3.1
+/Services/Money/obj
+/Services/ServiceTemplate/bin/Debug/netcoreapp3.1
+/Services/ServiceTemplate/obj
