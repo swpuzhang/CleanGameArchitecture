@@ -11,8 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Account\" />
-    <Folder Include="Account\logs\" />
+    <Compile Remove="Account\**" />
+    <Content Remove="Account\**" />
+    <EmbeddedResource Remove="Account\**" />
+    <None Remove="Account\**" />
   </ItemGroup>
 
   <ItemGroup>

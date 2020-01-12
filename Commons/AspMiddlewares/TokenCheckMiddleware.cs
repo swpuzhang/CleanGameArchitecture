@@ -16,8 +16,6 @@ namespace Commons.AspMiddlewares
         public MiddleResponse()
         {
         }
-
-        [JsonConstructor]
         public MiddleResponse(ResponseStatus statusCode, List<string> errorInfos)
         {
             StatusCode = statusCode;
