@@ -1,0 +1,22 @@
+
+rabbitmq-plugins enable rabbitmq_management
+http://localhost:15672/      
+rabbitmqctl add_user CleanGame best_2019
+rabbitmqctl add_vhost CleanGame
+
+rabbitmqctl set_user_tags CleanGame  administrator
+
+rabbitmqctl set_permissions -p CleanGame CleanGame ".*" ".*" ".*"
+
+集群
+service rabbitmq-server stop
+拷贝一台机器的/var/lib/rabbitmq/.erlang.cookie 到另外的机器
+chmod 400 .erlang.cookie
+service rabbitmq-server start
+rabbitmqctl stop_app
+rabbitmqctl reset
+vim /etc/rabbitmq/rabbitmq-env.conf
+rabbitmqctl join_cluster rabbit@sns-mq01
+rabbitmqctl start_app
+
+

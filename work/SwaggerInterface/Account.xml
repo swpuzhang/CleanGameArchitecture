@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Account</name>
+    </assembly>
+    <members>
+        <member name="T:Account.Controllers.AccountController">
+            <summary>
+            账号相关操作
+            </summary>
+        </member>
+        <member name="M:Account.Controllers.AccountController.Login(Account.ViewModels.AccountInfoVm)">
+            <summary>
+            登录接口
+            </summary>
+            <param name="accountInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Controllers.AccountController.GetSelfAccount(System.Int64)">
+            <summary>
+            获取自己的账号信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Controllers.AccountController.GetOtherAccount(System.Int64,System.Int64)">
+            <summary>
+            获取其他玩家的信息
+            </summary>
+            <param name="id"></param>
+            <param name="otherId">其他玩家ID</param>
+            <returns></returns>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.Type">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.OtherAccountDetailVm.Type">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.OtherAccountDetailVm.FriendType">
+            <summary>
+            好友类型 -1 非好友 0 游戏好友 1 平台好友
+            </summary>
+        </member>
+        <member name="T:Account.ViewModels.AccountInfoVm">
+            <summary>
+            玩家账号
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountInfoVm.PlatformAccount">
+            <summary>
+            平台账号
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountInfoVm.UserName">
+            <summary>
+            平台账号名
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountInfoVm.Sex">
+            <summary>
+            性别0 男， 1女
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountInfoVm.HeadUrl">
+            <summary>
+            平台头像url
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountInfoVm.Type">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.Id">
+             <summary>
+            玩家唯一Id 
+             </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.PlatformAccount">
+            <summary>
+            平台账号
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.UserName">
+            <summary>
+            平台账号名
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.Sex">
+            <summary>
+            性别0 男， 1女
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.HeadUrl">
+            <summary>
+            平台头像url
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.Type">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.CurCoins">
+            <summary>
+            当前金币
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.CurDiamonds">
+            <summary>
+            当前砖石数
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.LongConnectHost">
+            <summary>
+            长连接地址
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountResponseVm.IsRegister">
+            <summary>
+            是否是注册，还是普通登录
+            </summary>
+        </member>
+    </members>
+</doc>

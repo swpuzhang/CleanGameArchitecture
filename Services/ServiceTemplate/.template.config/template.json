@@ -1,0 +1,13 @@
+{
+    "author": "zhangyang", 
+    "classifications": [ "ServiceTemplate" ], 
+    "name": "ServiceTemplate", 
+    "identity": "ServiceTemplate", 
+    "shortName": "svtpl", 
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "ServiceTemplate",  
+    "preferNameDirectory": true 
+}

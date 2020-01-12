@@ -1,0 +1,34 @@
+修改配之前先停止mongodb redis rabbitmq
+
+
+
+service mongod stop
+修改mongodb: /etc/mongod.conf bindIp: 127.0.0.1,内网ip
+     dbPath: /ebs_server/mongodb/data
+     path: /ebs_server/mongodb/log/mongod.log
+service mongod start 
+
+/etc/init.d/redis_6379 stop
+修改redis:去redis安装包下面安装端口 修改/etc/redis/下面的配置
+          bind 172.26.1.178 127.0.0.1
+          logfile /var/log/redis_6379.log =>/ebs_server/redis/log/redis_6379.log
+          dir /var/lib/redis/6379 => /ebs_server/redis/lib/6379/
+          mkdir  /ebs_server/redis/lib/6379
+ /etc/init.d/redis_6379 start
+
+
+service rabbitmq-server stop
+修改rabbitmq:
+vim /etc/rabbitmq/rabbitmq-env.conf
+修改
+RABBITMQ_MNESIA_BASE=/ebs_server/rabbitmq/mnesia
+RABBITMQ_LOG_BASE=/ebs_server/rabbitmq/log
+service rabbitmq-server start
+rabbitmq-plugins enable rabbitmq_management
+rabbitmqctl  delete_user  guest
+
+这是集群配置
+rabbitmqctl reset
+rabbitmqctl join_cluster rabbit@sns-mq01
+rabbitmqctl start_app
+

@@ -1,0 +1,2 @@
+//创建账户
+adduser sangong
