@@ -6,14 +6,29 @@ using System.Threading.Tasks;
 
 namespace Account.ViewModels
 {
+    /// <summary>
+    /// 账号详细信息
+    /// </summary>
     public class AccountDetailVm
     {
+        /// <summary>
+        /// 平台Id
+        /// </summary>
         public string PlatformAccount { get; set; }
 
+        /// <summary>
+        /// 玩家姓名
+        /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// 性别0-男 1-女
+        /// </summary>
         public int Sex { get; set; }
 
+        /// <summary>
+        /// 头像url
+        /// </summary>
         public string HeadUrl { get; set; }
 
         /// <summary>
@@ -21,10 +36,19 @@ namespace Account.ViewModels
         /// </summary>
         public AccountType Type { get; set; }
 
+        /// <summary>
+        /// 等级信息
+        /// </summary>
         public LevelInfoVm LevelInfo { get; set; }
 
+        /// <summary>
+        /// 游戏信息
+        /// </summary>
         public GameInfoVm GameInfo { get; set; }
 
+        /// <summary>
+        /// 金币信息
+        /// </summary>
         public MoneyInfoVm MoneyInfo { get; set; }
 
         public AccountDetailVm()
@@ -47,6 +71,10 @@ namespace Account.ViewModels
             MoneyInfo = moneyInfo;
         }
     }
+
+    /// <summary>
+    /// 其他玩家账号信息
+    /// </summary>
     public class OtherAccountDetailVm
     {
         public string PlatformAccount { get; set; }
@@ -78,7 +106,6 @@ namespace Account.ViewModels
 
         }
 
-     
         public OtherAccountDetailVm(string platformAccount, string userName,
             int sex, string headUrl, AccountType type,
             LevelInfoVm levelInfo, GameInfoVm gameInfo,

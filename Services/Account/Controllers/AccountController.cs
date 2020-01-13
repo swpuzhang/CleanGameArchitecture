@@ -44,6 +44,7 @@ namespace Account.Controllers
         /// 获取自己的账号信息
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet]
         public async Task<WrappedResponse<AccountDetailVm>> GetSelfAccount([FromHeader]long id)
         {
@@ -55,8 +56,8 @@ namespace Account.Controllers
         /// <summary>
         /// 获取其他玩家的信息
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="otherId">其他玩家ID</param>
+        /// <param name="id">忽略</param>
+        /// <param name="otherId">其他玩家Id</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<WrappedResponse<OtherAccountDetailVm>> GetOtherAccount([FromHeader]long id, Int64 otherId)

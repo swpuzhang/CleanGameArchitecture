@@ -11,6 +11,10 @@ namespace Commons.Models
 
     }
 
+    /// <summary>
+    /// 回复给客户端Response
+    /// </summary>
+    /// <typeparam name="TBody"></typeparam>
     public class WrappedResponse<TBody> where TBody : class
     {
         public WrappedResponse()
@@ -30,8 +34,17 @@ namespace Commons.Models
             return new WrappedResponse<V>(ResponseStatus, ErrorInfos, mapper.Map<V>(Body));
         }
 
+        /// <summary>
+        /// 响应状态码
+        /// </summary>
         public ResponseStatus ResponseStatus { get; private set; }
+        /// <summary>
+        /// 错误信息
+        /// </summary>
         public List<string> ErrorInfos { get; private set; }
+        /// <summary>
+        /// 具体的响应内容
+        /// </summary>
         public TBody Body { get; set; }
     }
 }

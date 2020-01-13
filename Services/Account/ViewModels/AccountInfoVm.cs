@@ -42,7 +42,9 @@ namespace Account.ViewModels
 
     }
 
-
+    /// <summary>
+    /// 请求账号的响应消息
+    /// </summary>
     public class AccountResponseVm
     {
         public AccountResponseVm(long id, string platformAccount,

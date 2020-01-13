@@ -14,3 +14,5 @@
 /Services/ServiceTemplate/obj
 /Test/EasyNetQTest/bin/Debug/netcoreapp3.1
 /Test/EasyNetQTest/obj
+*.user
+/Services/Money/Money/logs
