@@ -59,7 +59,7 @@ namespace Commons.Startup
             var assms = AppDomain.CurrentDomain.GetAssemblies().ToList();
             builder.RegisterAssemblyTypes(assms.ToArray())
                 .Where(t => basetype.IsAssignableFrom(t) && t != basetype)
-                .AsImplementedInterfaces().InstancePerLifetimeScope();
+                .AsImplementedInterfaces().InstancePerLifetimeScope();         
         }
        
         public static void ConfigMongoServices(this IServiceCollection services, IConfiguration configuration)

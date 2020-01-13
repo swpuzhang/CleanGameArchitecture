@@ -17,6 +17,7 @@ using MassTransit;
 using Commons.Buses.MqBus;
 using Serilog;
 using Commons.Tools.KeyGen;
+using Messages.MqEvents;
 
 namespace Money.Domain.ProcessCommands
 {
@@ -24,28 +25,29 @@ namespace Money.Domain.ProcessCommands
         , IRequestHandler<AddMoneyCommand, WrappedResponse<MoneyInfo>>
     {
         
-        private readonly IMoneyRedisRepository _MoneyRedisRep;
-        private readonly IMoneyInfoRepository _MoneyRep;
-
-        public MoneyCmdHandler(IMoneyRedisRepository MoneyRedisRep, IMoneyInfoRepository MoneyRep)
+        private readonly IMoneyRedisRepository _moneyRedisRep;
+        private readonly IMoneyInfoRepository _moneyRep;
+        private readonly IBusControl _busCtl;
+        public MoneyCmdHandler(IMoneyRedisRepository MoneyRedisRep, IMoneyInfoRepository MoneyRep, IBusControl busCtl)
         {
-            _MoneyRedisRep = MoneyRedisRep;
-            _MoneyRep = MoneyRep;
+            _moneyRedisRep = MoneyRedisRep;
+            _moneyRep = MoneyRep;
+            _busCtl = busCtl;
         }
 
         public async Task<WrappedResponse<MoneyInfo>> Handle(GetMoneyCommand request, CancellationToken cancellationToken)
         {
 
-            var moneyInfo = await _MoneyRedisRep.GetMoneyInfo(request.Id);
+            var moneyInfo = await _moneyRedisRep.GetMoneyInfo(request.Id);
             if (moneyInfo == null)
             {
-                using (var locker = _MoneyRedisRep.Locker(KeyGenTool.GenUserKey(request.Id,
+                using (var locker = _moneyRedisRep.Locker(KeyGenTool.GenUserKey(request.Id,
                     MoneyInfo.ClassName)))
                 {
                     await locker.LockAsync();
-                    moneyInfo = await _MoneyRep.FindAndAdd(request.Id,
+                    moneyInfo = await _moneyRep.FindAndAdd(request.Id,
                         new MoneyInfo(request.Id, 0, 0, 0, 0, 0));
-                    _ = _MoneyRedisRep.SetMoneyInfo(moneyInfo);
+                    _ = _moneyRedisRep.SetMoneyInfo(moneyInfo);
                 }
 
                 if (moneyInfo == null)
@@ -62,13 +64,13 @@ namespace Money.Domain.ProcessCommands
 
         public async Task<WrappedResponse<MoneyInfo>> Handle(AddMoneyCommand request, CancellationToken cancellationToken)
         {
-            using var locker = _MoneyRedisRep.Locker(KeyGenTool.GenUserKey(request.Id,MoneyInfo.ClassName));
+            using var locker = _moneyRedisRep.Locker(KeyGenTool.GenUserKey(request.Id,MoneyInfo.ClassName));
             await locker.LockAsync();
             Log.Debug($"AddMoneyCommand add begin:{request.AddCoins},{request.AddCarry} {request.AggregateId}");
-            var moneyInfo = await _MoneyRedisRep.GetMoneyInfo(request.Id);
+            var moneyInfo = await _moneyRedisRep.GetMoneyInfo(request.Id);
             if (moneyInfo == null)
             {
-                moneyInfo = await _MoneyRep.FindAndAdd(request.Id,
+                moneyInfo = await _moneyRep.FindAndAdd(request.Id,
                     new MoneyInfo(request.Id, 0, 0, 0, 0, 0));
             }
 
@@ -91,18 +93,18 @@ namespace Money.Domain.ProcessCommands
             moneyInfo.AddCoins(request.AddCoins);
             moneyInfo.AddCarry(request.AddCarry);
             moneyInfo.UpdateMaxCoins();
-            /*long coinsChangedCount = request.AddCoins + request.AddCarry;
+            long coinsChangedCount = request.AddCoins + request.AddCarry;
 
             var moneyevent = new MoneyChangedMqEvent
                   (moneyInfo.Id, moneyInfo.CurCoins,
                   moneyInfo.CurDiamonds, moneyInfo.MaxCoins,
-                  moneyInfo.MaxDiamonds, coinsChangedCount, 0);
-            _busCtl.PublishExt(moneyevent);
-            _busCtl.PublishServerReqExt(moneyInfo.Id, moneyevent);
-            await Task.WhenAll(_redis.SetMoney(request.Id, moneyInfo),
-                _moneyRepository.ReplaceAsync(moneyInfo));
+                  moneyInfo.MaxDiamonds, coinsChangedCount, 0, request.Reason);
+            _ = _busCtl.Publish(moneyevent);
+           // _busCtl.PublishServerReqExt(moneyInfo.Id, moneyevent);
+            await Task.WhenAll(_moneyRedisRep.SetMoneyInfo(moneyInfo),
+                _moneyRep.ReplaceAsync(moneyInfo));
             Log.Debug($"AddMoneyCommand add end:{request.AddCoins},{request.AddCarry} {request.AggregateId} curCoins:{moneyInfo.CurCoins} curCarry:{moneyInfo.Carry}--3");
-            */
+            
             return new WrappedResponse<MoneyInfo>(ResponseStatus.Success, null,
                 new MoneyInfo(request.Id, moneyInfo.CurCoins, moneyInfo.CurDiamonds,
                 moneyInfo.MaxCoins, moneyInfo.MaxDiamonds, moneyInfo.Carry));

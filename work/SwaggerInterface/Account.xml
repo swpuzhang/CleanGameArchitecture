@@ -26,13 +26,58 @@
             <summary>
             获取其他玩家的信息
             </summary>
-            <param name="id"></param>
-            <param name="otherId">其他玩家ID</param>
+            <param name="id">忽略</param>
+            <param name="otherId">其他玩家Id</param>
             <returns></returns>
+        </member>
+        <member name="T:Account.ViewModels.AccountDetailVm">
+            <summary>
+            账号详细信息
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.PlatformAccount">
+            <summary>
+            平台Id
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.UserName">
+            <summary>
+            玩家姓名
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.Sex">
+            <summary>
+            性别0-男 1-女
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.HeadUrl">
+            <summary>
+            头像url
+            </summary>
         </member>
         <member name="P:Account.ViewModels.AccountDetailVm.Type">
             <summary>
             账号类型
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.LevelInfo">
+            <summary>
+            等级信息
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.GameInfo">
+            <summary>
+            游戏信息
+            </summary>
+        </member>
+        <member name="P:Account.ViewModels.AccountDetailVm.MoneyInfo">
+            <summary>
+            金币信息
+            </summary>
+        </member>
+        <member name="T:Account.ViewModels.OtherAccountDetailVm">
+            <summary>
+            其他玩家账号信息
             </summary>
         </member>
         <member name="P:Account.ViewModels.OtherAccountDetailVm.Type">
@@ -73,6 +118,11 @@
         <member name="P:Account.ViewModels.AccountInfoVm.Type">
             <summary>
             账号类型
+            </summary>
+        </member>
+        <member name="T:Account.ViewModels.AccountResponseVm">
+            <summary>
+            请求账号的响应消息
             </summary>
         </member>
         <member name="P:Account.ViewModels.AccountResponseVm.Id">

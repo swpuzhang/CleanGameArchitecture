@@ -9,7 +9,7 @@ namespace Account.Infrastruct.Repository
 {
     public class GameInfoRepository : MongoUserRepository<GameInfo>, IGameInfoRepository
     {
-        public GameInfoRepository(AccountContext context) : base(context.GameInfos)
+        public GameInfoRepository(IAccountContext context) : base(context.GameInfos)
         {
 
         }

@@ -15,6 +15,7 @@ namespace Account.Domain.Entitys
         {
         }
 
+        [JsonConstructor]
         public LevelInfo(long id, int curLevel, int curExp, int needExp)
         {
             Id = id;

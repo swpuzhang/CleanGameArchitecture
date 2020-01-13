@@ -130,6 +130,27 @@
             user实体
             </summary>
         </member>
+        <member name="T:Commons.Models.WrappedResponse`1">
+            <summary>
+            回复给客户端Response
+            </summary>
+            <typeparam name="TBody"></typeparam>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.ResponseStatus">
+            <summary>
+            响应状态码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.ErrorInfos">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.Body">
+            <summary>
+            具体的响应内容
+            </summary>
+        </member>
         <member name="M:Commons.Tools.KeyGen.KeyGenTool.GenKey(System.String,System.String[])">
             <summary>
             生成跟uid相关的key  userid|key1|key2

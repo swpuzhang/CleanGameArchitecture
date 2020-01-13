@@ -1,5 +1,6 @@
 ﻿using Commons.Enums;
 using Commons.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Money.Domain.Entitys
         {
         }
 
+        [JsonConstructor]
         public MoneyInfo(long id, long curCoins, long curDiamonds, long maxCoins, long maxDiamonds, long carry)
         {
             Id = id;

@@ -47,6 +47,10 @@ namespace Account.ViewModels
     /// </summary>
     public class AccountResponseVm
     {
+        public AccountResponseVm()
+        {
+
+        }
         public AccountResponseVm(long id, string platformAccount,
             string userName, int sex, string headUrl, AccountType type,
             string token, long curCoins,

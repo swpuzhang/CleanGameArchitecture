@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Account.Domain.Entitys
         {
         }
 
+        [JsonConstructor]
         public GameInfo(long id, int gameTimes, int winTimes, long maxWinCoins)
         {
             Id = id;

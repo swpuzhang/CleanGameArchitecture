@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Commons.Enums;
 
 namespace Money.Domain.ProcessCommands
 {
@@ -20,16 +21,17 @@ namespace Money.Domain.ProcessCommands
 
     public class AddMoneyCommand : ProcessCommand<WrappedResponse<MoneyInfo>>
     {
-        public AddMoneyCommand(long id, long addCoins, long addCarry)
+        public AddMoneyCommand(long id, long addCoins, long addCarry, AddReason reason)
         {
             Id = id;
             AddCoins = addCoins;
             AddCarry = addCarry;
+            Reason = reason;
         }
 
         public long Id { get; private set; }
         public long AddCoins { get; private set; }
         public long AddCarry { get; private set; }
-
+        public AddReason Reason { get; private set; }
     }
 }

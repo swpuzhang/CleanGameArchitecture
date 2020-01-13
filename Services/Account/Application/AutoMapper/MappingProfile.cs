@@ -18,7 +18,9 @@ namespace Account.Application.AutoMapper
                 .ForMember(x => x.CurCoins, (map) => map.MapFrom(dto => dto.MoneyInfo.CurCoins))
                 .ForMember(x => x.CurDiamonds, (map) => map.MapFrom(dto => dto.MoneyInfo.CurDiamonds))
                 .ReverseMap();
-            CreateMap<AccountDetailVm, OtherAccountDetailVm>().ReverseMap();
+            CreateMap<AccountDetailVm, OtherAccountDetailVm>()
+                .ForMember(x =>x.PlatformAccount, (src) => src.MapFrom(dto => dto.PlatformAccount))
+                .ReverseMap();
             CreateMap<GameInfoVm, GameInfo>().ReverseMap();
             CreateMap<LevelInfoVm, LevelInfo>().ReverseMap();
             CreateMap<MoneyInfoVm, MoneyInfo>().ReverseMap();

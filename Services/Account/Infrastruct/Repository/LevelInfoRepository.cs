@@ -9,7 +9,7 @@ namespace Account.Infrastruct.Repository
 {
     public class LevelInfoRepository : MongoUserRepository<LevelInfo>, ILevelInfoRepository
     {
-        public LevelInfoRepository(AccountContext context) : base(context.LevelInfos)
+        public LevelInfoRepository(IAccountContext context) : base(context.LevelInfos)
         {
 
         }

@@ -16,3 +16,4 @@
 /Test/EasyNetQTest/obj
 *.user
 /Services/Money/Money/logs
+/Services/Account/Account/logs

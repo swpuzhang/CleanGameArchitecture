@@ -35,9 +35,9 @@ namespace Money.Application.Services
             return new WrappedResponse<MoneyMqResponse>(ResponseStatus.Success, null, moneyResponse);
         }
 
-        public async Task<WrappedResponse<MoneyMqResponse>> AddMoney(long id, long addCoins, long addCarry)
+        public async Task<WrappedResponse<MoneyMqResponse>> AddMoney(long id, long addCoins, long addCarry, AddReason reason)
         {
-            var moneyInfo = await _bus.SendCommand(new AddMoneyCommand(id, addCoins, addCarry));
+            var moneyInfo = await _bus.SendCommand(new AddMoneyCommand(id, addCoins, addCarry, reason));
             if (moneyInfo.ResponseStatus != ResponseStatus.Success)
             {
                 return new WrappedResponse<MoneyMqResponse>(moneyInfo.ResponseStatus, null, null);

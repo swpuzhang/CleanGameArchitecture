@@ -23,36 +23,47 @@ namespace Account.Domain.ProcessCommands
         IRequestHandler<GetOtherAccountCommand, WrappedResponse<OtherAccountDetailVm>>
     {
         private readonly IAllRedisRepository _redisRep;
+        private readonly IAccountInfoRepository _accountRep;
         private readonly IMediatorHandler _bus;
         private readonly IRequestClient<GetMoneyMqCmd> _moneyClient;
         private readonly IMapper _mapper;
 
         public GetAccountCmdHandler(IAllRedisRepository accountRedisRep,
+            IAccountInfoRepository accountRep,
             IMediatorHandler bus, IRequestClient<GetMoneyMqCmd> moneyClient, IMapper mapper)
         {
             _redisRep = accountRedisRep;
             _bus = bus;
             _moneyClient = moneyClient;
             _mapper = mapper;
+            _accountRep = accountRep;
         }
 
         private async Task<AccountDetailVm> GetAccountDetail(long id)
 
         {
-            var tAccount = _redisRep.GetAccountInfo(id);
+            var accountInfo = await _redisRep.GetAccountInfo(id);
+            if (accountInfo == null)
+            {
+                accountInfo = await _accountRep.GetByIdAsync(id);
+                await _redisRep.SetAccountInfo(accountInfo);
+            }
+            if (accountInfo == null)
+            {
+                return null;
+            }
             var tMoney = _moneyClient.GetResponseExt<GetMoneyMqCmd, WrappedResponse<MoneyMqResponse>>
                             (new GetMoneyMqCmd(id));
 
             var tLevel = _bus.SendCommand(new GetLevelInfoCommand(id));
             var tGame = _bus.SendCommand(new GetGameInfoCommand(id));
-            await Task.WhenAll(tAccount, tMoney, tLevel, tGame);
+            await Task.WhenAll(tMoney, tLevel, tGame);
 
-            var accountInfo = tAccount.Result;
-            var moneyInfores = tMoney.Result;
-            var moneyInfo = new MoneyInfoVm(moneyInfores.Message.Body.CurCoins + moneyInfores.Message.Body.Carry, 
-                moneyInfores.Message.Body.CurDiamonds,
-                moneyInfores.Message.Body.MaxCoins,
-                moneyInfores.Message.Body.MaxDiamonds);
+            var moneyResponse = tMoney.Result;
+            var moneyInfo = new MoneyInfoVm(moneyResponse.Message.Body.CurCoins + moneyResponse.Message.Body.Carry,
+                moneyResponse.Message.Body.CurDiamonds,
+                moneyResponse.Message.Body.MaxCoins,
+                moneyResponse.Message.Body.MaxDiamonds);
             var levelInfo = _mapper.Map<LevelInfoVm>(tLevel.Result.Body);
             var gameInfo = _mapper.Map <GameInfoVm >(tGame.Result.Body);
 

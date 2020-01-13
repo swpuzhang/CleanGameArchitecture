@@ -21,7 +21,8 @@ namespace Money.MqConsumers
 
         public async Task Consume(ConsumeContext<AddMoneyMqCmd> context)
         {
-            var response = await _service.AddMoney(context.Message.Id, context.Message.AddCoins, context.Message.AddCarry);
+            var response = await _service.AddMoney(context.Message.Id, 
+                context.Message.AddCoins, context.Message.AddCarry, context.Message.Reason);
             await context.RespondAsync(response);
         }
 

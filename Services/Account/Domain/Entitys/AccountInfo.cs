@@ -1,5 +1,6 @@
 ﻿using Commons.Enums;
 using Commons.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Account.Domain.Entitys
 
         public DateTime RegisterDate { get; private set; }
 
+        [JsonConstructor]
         public AccountInfo(long id, string platformAccount, string userName,
             int sex, string headUrl, AccountType type, DateTime registerDate)
         {
@@ -39,9 +41,9 @@ namespace Account.Domain.Entitys
 
         public bool IsNeedUpdate(AccountInfo info)
         {
-            return UserName == info.UserName &&
-                   Sex == info.Sex &&
-                   HeadUrl == info.HeadUrl;
+            return UserName != info.UserName &&
+                   Sex != info.Sex &&
+                   HeadUrl != info.HeadUrl;
         }
     }
 

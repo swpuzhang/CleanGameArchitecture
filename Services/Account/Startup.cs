@@ -46,7 +46,6 @@ namespace Account
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<HostedService>().As<IHostedService>().SingleInstance();
             ConfigStartup.ConfigDependencyServices(builder);
             ConfigStartup.ConfigMassTransitSerivces(builder, Configuration, typeof(Startup).Assembly, x =>
             {
@@ -55,6 +54,7 @@ namespace Account
                 x.AddRequestClient<GetMoneyMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
                 x.AddRequestClient<AddMoneyMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
             });
+            builder.RegisterType<HostedService>().As<IHostedService>().SingleInstance();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
