@@ -1,4 +1,7 @@
 ﻿using Account.Infrastruct.Repository;
+using AutoMapper;
+using Commons.MqEvents;
+using MassTransit;
 using MediatR;
 using Serilog;
 using System;
@@ -13,10 +16,14 @@ namespace Account.Domain.ProcessEvents
     {
         private readonly IAllRedisRepository _redisRep;
         private readonly IAccountInfoRepository _accountRep;
-        public LoginEventHandler(IAllRedisRepository accountRedisRep, IAccountInfoRepository accountRep)
+        private readonly IBusControl _mqBus;
+        private readonly IMapper _mapper;
+        public LoginEventHandler(IAllRedisRepository accountRedisRep, IAccountInfoRepository accountRep, IBusControl mqBus, IMapper mapper)
         {
             _redisRep = accountRedisRep;
             _accountRep = accountRep;
+            _mqBus = mqBus;
+            _mapper = mapper;
         }
         public Task Handle(LoginEvent notification, CancellationToken cancellationToken)
         {
@@ -29,12 +36,12 @@ namespace Account.Domain.ProcessEvents
                 if (notification.IsRegister)
                 {
                     //通知注册
-                   
+                    _ = _mqBus.Publish(_mapper.Map<RegistMqEvent>(notification.AccounResponse));
                 }
                 else
                 {
                     //通知登录
-                   
+                    _ = _mqBus.Publish(_mapper.Map<LoginMqEvent>(notification.AccounResponse));
                 }
             }
             catch (Exception ex)
