@@ -17,3 +17,6 @@
 *.user
 /Services/Money/Money/logs
 /Services/Account/Account/logs
+/GateWays/ApiGateWays/bin/Debug/netcoreapp3.1
+/GateWays/ApiGateWays/obj
+/GateWays/ApiGateWays/Properties
