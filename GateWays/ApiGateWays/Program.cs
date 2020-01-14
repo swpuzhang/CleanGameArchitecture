@@ -18,7 +18,7 @@ namespace ApiGateWays
         public static readonly string AppName = typeof(Program).Namespace;
         public static void Main(string[] args)
         {
-            var config = ConfigStartup.GetOcelotConfiguration(args);
+            var config = ConfigStartup.GetConfiguration(args);
             Log.Logger = LogConfig.CreateSerilogLogger(config, AppName);
             Log.Information("CreateHostBuilder ({ApplicationContext})...", AppName);
             CreateHostBuilder(args, config).Build().Run();

@@ -20,3 +20,14 @@
 /GateWays/ApiGateWays/bin/Debug/netcoreapp3.1
 /GateWays/ApiGateWays/obj
 /GateWays/ApiGateWays/Properties
+/Commons/bin/Release/netcoreapp3.1
+/Messages/bin/Release/netcoreapp3.1
+/Services/Account/bin/Release/netcoreapp3.1
+/Services/Account/Properties/PublishProfiles
+/work/Services/Account
+/GateWays/ApiGateWays/ApiGateWays/logs
+/Services/Money/.config
+/Services/Money/bin/Release/netcoreapp3.1
+/Services/Money/Properties/PublishProfiles
+/work/Services/Money/Money/logs
+/work/Services/Money

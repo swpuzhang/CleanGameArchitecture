@@ -119,21 +119,13 @@ namespace Commons.Startup
                 c.OperationFilter<HttpHeaderFilter>();
                 c.DocumentFilter<SwaggerAddEnumDescriptions>();
                 string basePath;
-                if (Environment.OSVersion.Platform == PlatformID.MacOSX ||
-                        Environment.OSVersion.Platform == PlatformID.Unix)
-                {
 
-                    string home = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    basePath = Path.Combine(home, "work/SwaggerInterface");
-                }
-                else
-                {
-                    string curPath = ApplicationEnvironment.ApplicationBasePath;
-                    string dir = "CleanGameArchitecture";
-                    int index = curPath.LastIndexOf(dir);
-                    basePath = curPath.Substring(0, index + dir.Length) + "/work/SwaggerInterface";
-                }
 
+
+                string curPath = Directory.GetCurrentDirectory();
+                string dir = "CleanGameArchitecture";
+                int index = curPath.LastIndexOf(dir);
+                basePath = curPath.Substring(0, index + dir.Length) + "/work/SwaggerInterface";
                 var files = Directory.GetFiles(basePath, "*.xml");
                 foreach (var oneFile in files)
                 {

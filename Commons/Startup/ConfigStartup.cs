@@ -43,24 +43,10 @@ namespace Commons.Startup
 
         public static IConfiguration GetConfiguration(string[] args)
         {
-            bool isEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-            string basePath = isEnvironment ? Directory.GetCurrentDirectory() : ApplicationEnvironment.ApplicationBasePath;
+            string basePath = Directory.GetCurrentDirectory();
             var builder = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .AddCommandLine(args);
-            return builder.Build();
-        }
-
-        public static IConfiguration GetOcelotConfiguration(string[] args)
-        {
-            bool isEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-            string basePath = isEnvironment ? Directory.GetCurrentDirectory() : ApplicationEnvironment.ApplicationBasePath;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .AddCommandLine(args);
             return builder.Build();
