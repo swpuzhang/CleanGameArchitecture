@@ -32,6 +32,7 @@ namespace ServiceTemplate
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();
                     webBuilder.UseConfiguration(configuratioin);
+                    webBuilder.UseUrls($"http://{configuratioin["BindIp"]}:{configuratioin["Port"]}");
                 });
     }
 }

@@ -25,14 +25,34 @@ using MassTransit.AutofacIntegration;
 namespace Commons.Startup
 {
 
-    
+    public class ServiceOptions
+    {
+        public string ServiceName { get; set; }
+        public int ServiceIndex { get; set; }
+        public ConsulOptions Consul { get; set; }
+    }
 
     public static class ConfigStartup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureCommonServices(IServiceCollection services,
+            IConfiguration configuration)
         {
             services.ConfigSwagger();
+            ConfigMongoServices(services, configuration);
+            services.AddConsul(configuration);
+        }
+
+        public static void ConfigureCommonServices(ContainerBuilder builder)
+        {
+            ConfigDependencyServices(builder);
+        }
+
+        public static void ConfigureCommon(IApplicationBuilder app, IConfiguration configuration)
+        {
+            RedisOpt.Start(configuration["redis:ConnectionString"]);
+            ConfigureSwagger(app);
+            app.UseConsul(configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +71,7 @@ namespace Commons.Startup
                 .AddCommandLine(args);
             return builder.Build();
         }
-
+       
         public static void ConfigDependencyServices(ContainerBuilder builder)
         {
             var basetype = typeof(IDependency);
@@ -107,9 +127,7 @@ namespace Commons.Startup
                     
                 }));
                 clientAdd(x);
-            });
-           
-
+            });        
         }
     }
 }

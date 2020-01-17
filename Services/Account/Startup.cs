@@ -37,16 +37,14 @@ namespace Account
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            ConfigStartup.ConfigureCommonServices(services, Configuration);
             services.AddMediatR(typeof(Startup));
-            ConfigStartup.ConfigureServices(services);
-            ConfigStartup.ConfigMongoServices(services, Configuration);
             ConfigStartup.ConfigAutoMapperServices(services, typeof(MappingProfile));
-           
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            ConfigStartup.ConfigDependencyServices(builder);
+            ConfigStartup.ConfigureCommonServices(builder);
             ConfigStartup.ConfigMassTransitSerivces(builder, Configuration, typeof(Startup).Assembly, x =>
             {
                 var rabbitCfg = Configuration.GetSection("Rabbitmq");
@@ -60,9 +58,8 @@ namespace Account
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment _)
         {
-            RedisOpt.Start(Configuration["redis:ConnectionString"]);
-
-            ConfigStartup.ConfigureSwagger(app);
+            
+            ConfigStartup.ConfigureCommon(app, Configuration);
 
             app.UseTokenCheck("/api/Account/Login");
 
@@ -74,6 +71,7 @@ namespace Account
             {
                 endpoints.MapControllers();
             });
+           
         }
     }
 }

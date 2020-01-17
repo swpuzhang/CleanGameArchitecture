@@ -1,0 +1,10 @@
+{
+  "datacenter": "dc1",
+  "data_dir": "opt/consul/data",
+  "node_name": "consul-server01",
+  "server": true,
+  "bootstrap_expect": 1,
+  "bind_addr": "127.0.0.1",
+  "client_addr": "127.0.0.1",
+  "ui":true
+}

@@ -30,5 +30,7 @@
     <ProjectReference Include="..\..\Messages\Messages.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 
 </Project>
