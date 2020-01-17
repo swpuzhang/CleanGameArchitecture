@@ -16,7 +16,7 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
 
-namespace ApiGateWay
+namespace ApiGateway
 {
 
     public class Startup
