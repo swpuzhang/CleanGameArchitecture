@@ -1,0 +1,59 @@
+{
+  "ReRoutes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/Account/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "Account",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/Account/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/Money/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "Money",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/Money/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Account/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "Account",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/Account/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    }
+
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000",
+    "RequestIdKey": "OcRequestId",
+    "ServiceDiscoveryProvider": {
+      "Provider": "Consul",
+      "Host": "127.0.0.1",
+      "Port": 8500,
+      "ConfigurationKey": "Ocelot",
+      "PollingInterval": 1000
+    }
+  }
+}
