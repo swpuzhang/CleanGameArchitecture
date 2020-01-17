@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.DotNet.PlatformAbstractions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -109,23 +110,21 @@ namespace Commons.Startup
 
     public static class Swagger
     {
-        public static void ConfigSwagger(this IServiceCollection services)
+        public static void ConfigSwagger(this IServiceCollection services,
+            IConfiguration configuration)
         {
 
             services.AddSwaggerGen(c =>
             {
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.SwaggerDoc(configuration["Service:ServiceName"], 
+                    new OpenApiInfo { Title = configuration["Service:ServiceName"], Version = "v1" });
                 c.OperationFilter<HttpHeaderFilter>();
                 c.DocumentFilter<SwaggerAddEnumDescriptions>();
-                string basePath;
-
-
-
                 string curPath = Directory.GetCurrentDirectory();
                 string dir = "CleanGameArchitecture";
                 int index = curPath.LastIndexOf(dir);
-                basePath = curPath.Substring(0, index + dir.Length) + "/work/SwaggerInterface";
+                string basePath = curPath.Substring(0, index + dir.Length) + "/work/SwaggerInterface";
                 var files = Directory.GetFiles(basePath, "*.xml");
                 foreach (var oneFile in files)
                 {
@@ -136,13 +135,19 @@ namespace Commons.Startup
             });
         }
 
-        public static void UseSwaggerService(this IApplicationBuilder app)
+        public static void UseSwaggerService(this IApplicationBuilder app,
+            IConfiguration configuration)
         {
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "{documentName}/swagger.json";
+            });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                
+                c.ShowExtensions();
+                c.EnableValidator(null);
+                c.SwaggerEndpoint($"/{configuration["Service:ServiceName"]}/swagger.json",
+                    configuration["Service:ServiceName"]);
                 c.RoutePrefix = string.Empty;
             });
 

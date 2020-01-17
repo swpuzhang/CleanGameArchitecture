@@ -32,3 +32,6 @@
 /work/Services/Money/Money/logs
 /work/Services/Money
 /work/Consul/opt/consul/data
+/GateWays/ApiGateWay/ApiGateWay/logs
+/GateWays/ApiGateWay/bin/Debug/netcoreapp3.1
+/GateWays/ApiGateWay/obj

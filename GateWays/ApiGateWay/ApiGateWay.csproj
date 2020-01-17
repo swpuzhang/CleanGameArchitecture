@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ocelot" Version="13.8.0" />
-    <PackageReference Include="Ocelot.Provider.Consul" Version="13.8.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Commons\Commons.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ocelot" Version="13.8.1" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="13.8.1" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="http://json.schemastore.org/appsettings" /></VisualStudio></ProjectExtensions>

@@ -38,7 +38,7 @@ namespace Commons.Startup
         public static void ConfigureCommonServices(IServiceCollection services,
             IConfiguration configuration)
         {
-            services.ConfigSwagger();
+            services.ConfigSwagger(configuration);
             ConfigMongoServices(services, configuration);
             services.AddConsul(configuration);
         }
@@ -51,15 +51,11 @@ namespace Commons.Startup
         public static void ConfigureCommon(IApplicationBuilder app, IConfiguration configuration)
         {
             RedisOpt.Start(configuration["redis:ConnectionString"]);
-            ConfigureSwagger(app);
+            app.UseSwaggerService(configuration);
             app.UseConsul(configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void ConfigureSwagger(IApplicationBuilder app)
-        {
-            app.UseSwaggerService();
-        }
 
         public static IConfiguration GetConfiguration(string[] args)
         {
