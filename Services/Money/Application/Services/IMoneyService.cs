@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using Commons.Enums;
 
 namespace Money.Application.Services

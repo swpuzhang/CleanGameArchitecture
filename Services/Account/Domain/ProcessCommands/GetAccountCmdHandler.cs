@@ -8,19 +8,24 @@ using Commons.Enums;
 using Commons.Models;
 using MassTransit;
 using MediatR;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Account.Methods;
 
 namespace Account.Domain.ProcessCommands
 {
     public class GetAccountCmdHandler :
-         IRequestHandler<GetSelfAccountCommand, WrappedResponse<AccountDetailVm>>,
+        IRequestHandler<GetSelfAccountCommand, WrappedResponse<AccountDetailVm>>,
+        IRequestHandler<GetOtherAccountCommand, WrappedResponse<OtherAccountDetailVm>>,
+        IRequestHandler<GetAccountBaseInfoCommand, WrappedResponse<GetAccountBaseInfoMqResponse>>,
+        IRequestHandler<GetIdByPlatformCommand, WrappedResponse<GetIdByPlatformMqResponse>>
 
-        IRequestHandler<GetOtherAccountCommand, WrappedResponse<OtherAccountDetailVm>>
+
+
     {
         private readonly IAllRedisRepository _redisRep;
         private readonly IAccountInfoRepository _accountRep;
@@ -42,12 +47,7 @@ namespace Account.Domain.ProcessCommands
         private async Task<AccountDetailVm> GetAccountDetail(long id)
 
         {
-            var accountInfo = await _redisRep.GetAccountInfo(id);
-            if (accountInfo == null)
-            {
-                accountInfo = await _accountRep.GetByIdAsync(id);
-                await _redisRep.SetAccountInfo(accountInfo);
-            }
+            var accountInfo = await AccountRepositoryHelper.GetAccountInfo(id, _accountRep, _redisRep);
             if (accountInfo == null)
             {
                 return null;
@@ -104,6 +104,27 @@ namespace Account.Domain.ProcessCommands
              //   otherinfo.FriendType = response.Message.Body.FriendType;
             //}
             return new WrappedResponse<OtherAccountDetailVm>(ResponseStatus.Success, null, otherinfo);
+        }
+
+        public async Task<WrappedResponse<GetAccountBaseInfoMqResponse>> Handle(GetAccountBaseInfoCommand request, CancellationToken cancellationToken)
+        {
+            var accountInfo = await AccountRepositoryHelper.GetAccountInfo(request.Id, _accountRep, _redisRep);
+            if (accountInfo == null)
+            {
+                return new WrappedResponse<GetAccountBaseInfoMqResponse>(ResponseStatus.AccountError, null);
+            }
+            return new WrappedResponse<GetAccountBaseInfoMqResponse>(ResponseStatus.Success, null, _mapper.Map<GetAccountBaseInfoMqResponse>(accountInfo));
+        }
+
+        public async Task<WrappedResponse<GetIdByPlatformMqResponse>> Handle(GetIdByPlatformCommand request, CancellationToken cancellationToken)
+        {
+            long? id = await AccountRepositoryHelper.GetIdByPlatForm(request.PlatformAccount, _accountRep, _redisRep);
+            if (id != null)
+            {
+                return new WrappedResponse<GetIdByPlatformMqResponse>(ResponseStatus.Success, null, new GetIdByPlatformMqResponse(id.Value));
+            }
+
+            return new WrappedResponse<GetIdByPlatformMqResponse>(ResponseStatus.Error);
         }
     }
 }

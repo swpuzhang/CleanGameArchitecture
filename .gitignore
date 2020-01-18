@@ -35,3 +35,9 @@
 /GateWays/ApiGateWay/ApiGateWay/logs
 /GateWays/ApiGateWay/bin/Debug/netcoreapp3.1
 /GateWays/ApiGateWay/obj
+/Messages/CommonMessages/bin/Debug/netcoreapp3.1
+/Messages/CommonMessages/obj
+/Messages/SangongMessages/bin/Debug/netcoreapp3.1
+/Messages/SangongMessages/obj
+/Services/Reward/bin/Debug/netcoreapp3.1
+/Services/Reward/obj

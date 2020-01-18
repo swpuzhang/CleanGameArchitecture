@@ -9,7 +9,7 @@ using Commons.Buses.ProcessBus;
 using Commons.Buses;
 using Money.Domain.ProcessCommands;
 using Money.Domain.Entitys;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using Commons.Enums;
 
 namespace Money.Application.Services

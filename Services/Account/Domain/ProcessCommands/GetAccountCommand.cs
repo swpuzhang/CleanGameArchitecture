@@ -1,4 +1,5 @@
 ﻿using Account.ViewModels;
+using CommonMessages.MqCmds;
 using Commons.Buses.ProcessBus;
 using Commons.Models;
 using System;
@@ -25,6 +26,27 @@ namespace Account.Domain.ProcessCommands
         {
             Id = id;
             OtherId = otherId;
+        }
+    }
+
+    public class GetAccountBaseInfoCommand : ProcessCommand<WrappedResponse<GetAccountBaseInfoMqResponse>>
+    {
+        public long Id { get; private set; }
+        public GetAccountBaseInfoCommand(long id)
+        {
+            Id = id;
+        }
+    }
+
+
+    public class GetIdByPlatformCommand : ProcessCommand<WrappedResponse<GetIdByPlatformMqResponse>>
+    {
+        public string PlatformAccount { get; private set; }
+        public int Type { get; private set; }
+        public GetIdByPlatformCommand(string platformAccount, int type)
+        {
+            PlatformAccount = platformAccount;
+            Type = type;
         }
     }
 }

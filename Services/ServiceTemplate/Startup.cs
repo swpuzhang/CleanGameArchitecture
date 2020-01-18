@@ -19,7 +19,7 @@ using Commons.Models;
 using ServiceTemplate.ViewModels;
 using ServiceTemplate.Domain.ProcessEvents;
 using Serilog;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using Commons.AspMiddlewares;
 
 namespace ServiceTemplate

@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using ServiceTemplate.Application.Services;
 using System;
 using System.Collections.Generic;

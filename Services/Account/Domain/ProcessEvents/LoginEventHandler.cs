@@ -1,6 +1,6 @@
 ﻿using Account.Infrastruct.Repository;
 using AutoMapper;
-using Commons.MqEvents;
+using CommonMessages.MqEvents;
 using MassTransit;
 using MediatR;
 using Serilog;

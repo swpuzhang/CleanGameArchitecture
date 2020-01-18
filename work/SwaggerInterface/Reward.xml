@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reward</name>
+    </assembly>
+    <members>
+        <member name="T:Reward.Controllers.ActivityController">
+            <summary>
+            活动相关接口
+            </summary>
+        </member>
+        <member name="M:Reward.Controllers.ActivityController.QueryActivity(System.Int64)">
+            <summary>
+            查询活动
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.ActivityController.GetGameActReward(System.Int64,System.String,System.String)">
+            <summary>
+            获取打牌任务奖励
+            </summary>
+            <param name="id"></param>
+            <param name="activityId"></param>
+            <param name="subId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Reward.Controllers.RewardController">
+            <summary>
+            账号相关操作
+            </summary>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.QueryRegisterReward(System.Int64)">
+            <summary>
+            查询注册奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.GetRegisterReward(System.Int64)">
+            <summary>
+            领取注册奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.QueryLoginReward(System.Int64)">
+            <summary>
+            查询登录奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.GetLoginReward(System.Int64)">
+            <summary>
+            获取登录奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.QueryBankruptcy(System.Int64)">
+            <summary>
+            查询破产奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.GetBankruptcy(System.Int64)">
+            <summary>
+            领取破产奖励
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Reward.Domain.Entitys.GameActivityConfig.ActivityId">
+            <summary>
+            唯一活动ID
+            </summary>
+        </member>
+        <member name="T:Reward.Domain.Entitys.AllGameActivityConfig">
+            <summary>
+            所有打牌活动的配置
+            </summary>
+        </member>
+        <member name="T:Reward.ViewModels.OneRoomActivityInfoVm">
+             <summary>
+            单个房间打牌活动
+             </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.SubId">
+            <summary>
+            子任务ID
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.CurCount">
+            <summary>
+            当前计数
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.NeedCount">
+            <summary>
+            需要的总计数
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.State">
+            <summary>
+            是否完成该任务
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.RewardCoins">
+            <summary>
+            奖励金币数
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneRoomActivityInfoVm.Title">
+            <summary>
+            活动标题
+            </summary>
+        </member>
+        <member name="T:Reward.ViewModels.OneGameActivityInfoVm">
+            <summary>
+            一个打牌活动
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneGameActivityInfoVm.ActivityId">
+            <summary>
+            唯一活动ID
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneGameActivityInfoVm.Title">
+            <summary>
+            活动标题
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.OneGameActivityInfoVm.RoomInfos">
+            <summary>
+            所有场次打牌详情
+            </summary>
+        </member>
+        <member name="T:Reward.ViewModels.ActivityInfoVm">
+            <summary>
+            所有活动信息
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.ActivityInfoVm.AllGameActivitys">
+             <summary>
+            所有打牌活动
+             </summary>
+        </member>
+        <member name="P:Reward.ViewModels.ActivityInfoVm.AllWinActivitys">
+             <summary>
+            所有赢牌活动
+             </summary>
+        </member>
+        <member name="T:Reward.ViewModels.RewardVm">
+            <summary>
+            接口字段
+            </summary>
+        </member>
+        <member name="T:Reward.ViewModels.RegisterRewardVm">
+            <summary>
+            注册奖励
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.RegisterRewardVm.State">
+            <summary>
+            状态
+             None = 0, 没有注册奖励
+            NotBegin = 1:还未开始
+            Available = 2,可以领取
+            Getted = 3,已经被领取
+            Over = 4,奖励已经结束
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.RegisterRewardVm.DayIndex">
+            <summary>
+            领取的第几天
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.RegisterRewardVm.RewardConfig">
+            <summary>
+            奖励配置, 每一天奖励的金币数量
+            </summary>
+        </member>
+        <member name="T:Reward.ViewModels.RewardInfoVm">
+            <summary>
+            领取奖励响应
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.RewardInfoVm.RewardCoins">
+            <summary>
+            领取的金币奖励
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.LoginRewardVm.RewardConfig">
+            <summary>
+            奖励配置, 每一天奖励的金币数量
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.BankruptcyInfoVm.Type">
+             <summary>
+            每天破产补助
+            Day,
+            终身破产补助
+            lifelong
+             </summary>
+        </member>
+        <member name="P:Reward.ViewModels.BankruptcyInfoVm.TotalTimes">
+            <summary>
+            总共几次破产机会
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.BankruptcyInfoVm.CurTimes">
+            <summary>
+            当前是第几次
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.BankruptcyInfoVm.RewardConfig">
+            <summary>
+            破产几次的配置
+            </summary>
+            
+        </member>
+    </members>
+</doc>

@@ -19,7 +19,7 @@ using Commons.Models;
 using Money.ViewModels;
 using Money.Domain.ProcessEvents;
 using Serilog;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using Commons.AspMiddlewares;
 
 namespace Money

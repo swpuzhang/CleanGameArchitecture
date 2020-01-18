@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Messages.MqEvents
+namespace CommonMessages.MqEvents
 {
     public class MoneyChangedMqEvent
     {

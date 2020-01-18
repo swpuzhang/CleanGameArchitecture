@@ -1,4 +1,5 @@
-﻿using Commons.Enums;
+﻿using CommonMessages.MqCmds;
+using Commons.Enums;
 using Commons.Models;
 using Newtonsoft.Json;
 using System;
@@ -25,9 +26,16 @@ namespace Account.Domain.Entitys
 
         public DateTime RegisterDate { get; private set; }
 
+        public GetAccountBaseInfoMqResponse.SomeFlags Flags { get; private set; }
+
+        public void FinishRegister()
+        {
+            Flags |= GetAccountBaseInfoMqResponse.SomeFlags.RegisterReward;
+        }
         [JsonConstructor]
         public AccountInfo(long id, string platformAccount, string userName,
-            int sex, string headUrl, AccountType type, DateTime registerDate)
+            int sex, string headUrl, AccountType type, DateTime registerDate,
+            GetAccountBaseInfoMqResponse.SomeFlags flags = GetAccountBaseInfoMqResponse.SomeFlags.None)
         {
 
             Id = id;
@@ -37,6 +45,7 @@ namespace Account.Domain.Entitys
             HeadUrl = headUrl;
             Type = type;
             RegisterDate = registerDate;
+            Flags = flags;
         }
 
         public bool IsNeedUpdate(AccountInfo info)

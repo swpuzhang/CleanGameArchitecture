@@ -12,7 +12,7 @@ using Commons.Tools.Encryption;
 using Commons.Buses;
 using ServiceTemplate.Domain.ProcessEvents;
 using Commons.Enums;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using MassTransit;
 using Commons.Buses.MqBus;
 using Serilog;

@@ -1,4 +1,5 @@
 ﻿using Account.ViewModels;
+using CommonMessages.MqCmds;
 using Commons.DiIoc;
 using Commons.Models;
 using System;
@@ -13,5 +14,8 @@ namespace Account.Application.Services
         public Task<WrappedResponse<AccountResponseVm>> Login(AccountInfoVm accountInfo);
         Task<WrappedResponse<AccountDetailVm>> GetSelfAccount(long id);
         Task<WrappedResponse<OtherAccountDetailVm>> GetOtherAccount(long id, long otherId);
+        Task<WrappedResponse<GetAccountBaseInfoMqResponse>> GetAccountBaseInfo(long id);
+        void FinishRegisterReward(long id);
+        Task<WrappedResponse<GetIdByPlatformMqResponse>> GetIdByPlatform(string platformAccount, int type);
     }
 }

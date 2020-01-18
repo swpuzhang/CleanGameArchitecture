@@ -12,12 +12,12 @@ using Commons.Tools.Encryption;
 using Commons.Buses;
 using Money.Domain.ProcessEvents;
 using Commons.Enums;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using MassTransit;
 using Commons.Buses.MqBus;
 using Serilog;
 using Commons.Tools.KeyGen;
-using Messages.MqEvents;
+using CommonMessages.MqEvents;
 
 namespace Money.Domain.ProcessCommands
 {

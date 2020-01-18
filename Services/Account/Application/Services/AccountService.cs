@@ -9,6 +9,9 @@ using Commons.Buses.ProcessBus;
 using Commons.Buses;
 using Account.Domain.ProcessCommands;
 using Account.Domain.Entitys;
+using CommonMessages.MqCmds;
+using Commons.Enums;
+using Account.Domain.ProcessEvents;
 
 namespace Account.Application.Services
 {
@@ -37,6 +40,27 @@ namespace Account.Application.Services
         {
             return _bus.SendCommand(new GetOtherAccountCommand(id, otherId));
             
+        }
+
+        public async Task<WrappedResponse<GetAccountBaseInfoMqResponse>> GetAccountBaseInfo(long id)
+        {
+            var response = await _bus.SendCommand(new GetAccountBaseInfoCommand(id));
+            if (response.ResponseStatus != ResponseStatus.Success)
+            {
+                return new WrappedResponse<GetAccountBaseInfoMqResponse>(response.ResponseStatus, response.ErrorInfos);
+            }
+            return new WrappedResponse<GetAccountBaseInfoMqResponse>(ResponseStatus.Success, null,
+                _mapper.Map<GetAccountBaseInfoMqResponse>(response.Body));
+        }
+
+        public void FinishRegisterReward(long id)
+        {
+            _bus.RaiseEvent(new FinishRegisterRewardEvent(id));
+        }
+
+        public Task<WrappedResponse<GetIdByPlatformMqResponse>> GetIdByPlatform(string platformAccount, int type)
+        {
+            return _bus.SendCommand(new GetIdByPlatformCommand(platformAccount, type));
         }
     }
 }

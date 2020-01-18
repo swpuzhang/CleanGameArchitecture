@@ -19,7 +19,7 @@ using Commons.Models;
 using Account.ViewModels;
 using Account.Domain.ProcessEvents;
 using Serilog;
-using Messages.MqCmds;
+using CommonMessages.MqCmds;
 using Commons.AspMiddlewares;
 
 namespace Account
