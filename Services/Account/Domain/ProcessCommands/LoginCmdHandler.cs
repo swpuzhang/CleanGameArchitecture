@@ -86,7 +86,7 @@ namespace Account.Domain.ProcessCommands
                 if (isRegister)
                 {
                     var mqResponse = await _moneyAddClient.GetResponseExt<AddMoneyMqCmd, WrappedResponse<MoneyMqResponse>>
-                          (new AddMoneyMqCmd(accountInfo.Id, 1000, 0, AddReason.InitReward));
+                          (new AddMoneyMqCmd(accountInfo.Id, InitRewardInfo.RewardCoins, 0, AddReason.InitReward));
                     var moneyInfo = mqResponse.Message.Body;
                     accounResponse = new AccountResponse(newAccountInfo.Id,
                    newAccountInfo.PlatformAccount,
