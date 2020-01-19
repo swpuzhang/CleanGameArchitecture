@@ -18,9 +18,11 @@ namespace Reward.Controllers
     public class RewardController : ControllerBase
     {
         private readonly IRewardService _service;
-        public RewardController(IRewardService service)
+        private readonly IActivityService _actService;
+        public RewardController(IRewardService service, IActivityService actService)
         {
             _service = service;
+            _actService = actService;
         }
 
         /// <summary>
@@ -87,6 +89,30 @@ namespace Reward.Controllers
         public async Task<WrappedResponse<RewardInfoVm>> GetBankruptcy([FromHeader]long id)
         {
             return await _service.GetBankruptcy(id);
+        }
+
+        /// <summary>
+        /// 查询活动
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<WrappedResponse<ActivityInfoVm>> QueryActivity([FromHeader]long id)
+        {
+            return await _actService.QueryActivity(id);
+        }
+
+        /// <summary>
+        /// 获取打牌任务奖励
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="activityId"></param>
+        /// <param name="subId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<WrappedResponse<RewardInfoVm>> GetGameActReward([FromHeader]long id, string activityId, string subId)
+        {
+            return await _actService.GetGameActReward(id, activityId, subId);
         }
     }
 }

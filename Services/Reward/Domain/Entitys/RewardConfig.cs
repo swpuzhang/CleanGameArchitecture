@@ -19,6 +19,7 @@ namespace Reward.Domain.Entitys
     public class BankruptcyConfig
     {
         public List<long> BankruptcyRewards { get; set; }
+        public long BankruptcyLimit { get; set; }
     }
 
     public class InviteRewardConfig

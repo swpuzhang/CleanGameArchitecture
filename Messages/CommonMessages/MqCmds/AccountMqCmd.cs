@@ -59,7 +59,8 @@ namespace CommonMessages.MqCmds
     {
         public GetAccountInfoMqResponse(long id, string platformAccount,
             string userName, int sex, string headUrl,
-            GameInfoMq gameInfo, LevelInfoMq levelInfo)
+            GameInfoMq gameInfo, LevelInfoMq levelInfo,
+            long curCoins, long curDiamonds)
         {
             Id = id;
             PlatformAccount = platformAccount;
@@ -68,6 +69,8 @@ namespace CommonMessages.MqCmds
             HeadUrl = headUrl;
             GameInfo = gameInfo;
             LevelInfo = levelInfo;
+            CurCoins = curCoins;
+            CurDiamonds = curDiamonds;
         }
 
         public Int64 Id { get; private set; }
@@ -79,6 +82,8 @@ namespace CommonMessages.MqCmds
         public GameInfoMq GameInfo { get; private set; }
 
         public LevelInfoMq LevelInfo { get; private set; }
+        public long CurCoins { get; private set; }
+        public long CurDiamonds { get; private set; }
 
     }
 

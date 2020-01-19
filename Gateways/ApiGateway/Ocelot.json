@@ -16,6 +16,20 @@
     },
     {
       "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Reward/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "Reward",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/Reward/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/Account/swagger.json",
       "DownstreamScheme": "http",
       "ServiceName": "Account",

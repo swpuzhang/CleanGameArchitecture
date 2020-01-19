@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Reward.ViewModels;
 using Commons.Tools.KeyGen;
 using CommonMessages.MqCmds;
+using Reward.Domain.Manager;
 
 namespace Reward.Domain.CommandHandlers
 {
@@ -25,15 +26,13 @@ namespace Reward.Domain.CommandHandlers
     {
         protected readonly IMediatorHandler _bus;
         private readonly IRewardRedisRepository _redis;
-        private readonly LoginRewardConfig _loginConfig;
         private readonly IBusControl _mqBus;
 
         public LoginRewardCommandHandler(IMediatorHandler bus, IRewardRedisRepository redis, 
-            LoginRewardConfig loginConfig, IBusControl mqBus)
+            IBusControl mqBus)
         {
             _bus = bus;
             _redis = redis;
-            _loginConfig = loginConfig;
             _mqBus = mqBus;
         }
 
@@ -49,7 +48,7 @@ namespace Reward.Domain.CommandHandlers
         {
             List<LoginRewardVm.OneReward> daysReward = new List<LoginRewardVm.OneReward>();
             int dayOfWeek = (int)time.DayOfWeek;
-            for (int i = 0; i < _loginConfig.DayRewards.Count; ++i)
+            for (int i = 0; i < RewardManager.LoginRewardConf.DayRewards.Count; ++i)
             {
                 LoginRewardVm.OneReward oneReward;
                 if (dayOfWeek > i)
@@ -59,7 +58,7 @@ namespace Reward.Domain.CommandHandlers
                         oneReward = new LoginRewardVm.OneReward
                         {
                             DayIndex = i,
-                            RewardCoins = _loginConfig.DayRewards[i],
+                            RewardCoins = RewardManager.LoginRewardConf.DayRewards[i],
                             State = LoginRewardVm.OneRewardState.NotGetted
                         };
 
@@ -69,7 +68,7 @@ namespace Reward.Domain.CommandHandlers
                         oneReward = new LoginRewardVm.OneReward
                         {
                             DayIndex = i,
-                            RewardCoins = _loginConfig.DayRewards[i],
+                            RewardCoins = RewardManager.LoginRewardConf.DayRewards[i],
                             State = LoginRewardVm.OneRewardState.Getted
                         };
 
@@ -82,7 +81,7 @@ namespace Reward.Domain.CommandHandlers
                     oneReward = new LoginRewardVm.OneReward
                     {
                         DayIndex = i,
-                        RewardCoins = _loginConfig.DayRewards[i],
+                        RewardCoins = RewardManager.LoginRewardConf.DayRewards[i],
                         State = LoginRewardVm.OneRewardState.Waitting
                     };
                 }
@@ -93,7 +92,7 @@ namespace Reward.Domain.CommandHandlers
                         oneReward = new LoginRewardVm.OneReward
                         {
                             DayIndex = i,
-                            RewardCoins = _loginConfig.DayRewards[i],
+                            RewardCoins = RewardManager.LoginRewardConf.DayRewards[i],
                             State = LoginRewardVm.OneRewardState.Available
                         };
                     }
@@ -102,7 +101,7 @@ namespace Reward.Domain.CommandHandlers
                         oneReward = new LoginRewardVm.OneReward
                         {
                             DayIndex = i,
-                            RewardCoins = _loginConfig.DayRewards[i],
+                            RewardCoins = RewardManager.LoginRewardConf.DayRewards[i],
                             State = LoginRewardVm.OneRewardState.Getted
                         };
                     }
@@ -123,7 +122,7 @@ namespace Reward.Domain.CommandHandlers
             long rewardCoins = 0;
             if (rewardInfo == null || !rewardInfo.GettedDays.Contains(dayOfWeek))
             {
-                rewardCoins = _loginConfig.DayRewards[dayOfWeek];
+                rewardCoins = RewardManager.LoginRewardConf.DayRewards[dayOfWeek];
                 if (rewardInfo == null)
                 {
                     rewardInfo = new LoginRewardInfo(request.Id, new List<int>());

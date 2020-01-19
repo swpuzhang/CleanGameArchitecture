@@ -18,6 +18,7 @@ using CommonMessages.MqCmds;
 using Commons.Buses.MqBus;
 using Commons.Tools.Time;
 using Commons.Tools.KeyGen;
+using Reward.Domain.Manager;
 
 namespace Reward.Domain.CommandHandlers
 {
@@ -32,16 +33,14 @@ namespace Reward.Domain.CommandHandlers
         private readonly IRewardRedisRepository _redis;
         private readonly IRequestClient<GetAccountBaseInfoMqCmd> _accountClient;
         private readonly IBusControl _mqBus;
-        private readonly RegisterRewardConfig _regsterConfig;
         public RewardCommandHandler(IRegisterRewardRepository rep, IRewardRedisRepository redis,
             IMediatorHandler bus, IRequestClient<GetAccountBaseInfoMqCmd> accountClient,
-            RegisterRewardConfig regsterConfig, IBusControl mqBus)
+            IBusControl mqBus)
         {
             _registerRepository = rep;
             _redis = redis;
             _bus = bus;
             _accountClient = accountClient;
-            _regsterConfig = regsterConfig;
             _mqBus = mqBus;
         }
 
@@ -59,13 +58,12 @@ namespace Reward.Domain.CommandHandlers
             {
                 return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Error);
             }
-            if ((accountInfo.Body.Flags & GetAccountBaseInfoMqResponse.SomeFlags.RegisterReward) ==
-                GetAccountBaseInfoMqResponse.SomeFlags.RegisterReward)
+            if ((accountInfo.Body.Flags & GetAccountBaseInfoMqResponse.SomeFlags.RegisterReward) != 0)
             {
                 return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success,
-                    null, new RegisterRewardVm(RegisterRewardVm.RewardState.Over, 0, _regsterConfig.DayRewards));
+                    null, new RegisterRewardVm(RegisterRewardVm.RewardState.Over, 0, RewardManager.RegisterRewardConf.DayRewards));
             }
-            if (_regsterConfig.DayRewards.Count == 0)
+            if (RewardManager.RegisterRewardConf.DayRewards.Count == 0)
             {
                 return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success,
                     null, new RegisterRewardVm(RegisterRewardVm.RewardState.None, 0, null));
@@ -75,7 +73,7 @@ namespace Reward.Domain.CommandHandlers
             if (registerDate == nowDate)
             {
                 return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success,
-                    null, new RegisterRewardVm(RegisterRewardVm.RewardState.NotBegin, 0, _regsterConfig.DayRewards));
+                    null, new RegisterRewardVm(RegisterRewardVm.RewardState.NotBegin, 0, RewardManager.RegisterRewardConf.DayRewards));
             }
 
             int dayIndex = 0;
@@ -92,19 +90,19 @@ namespace Reward.Domain.CommandHandlers
             }
             else
             {
-                if (rewardInfo.DayIndex >= _regsterConfig.DayRewards.Count - 1)
+                if (rewardInfo.DayIndex >= RewardManager.RegisterRewardConf.DayRewards.Count - 1)
                 {
-                    if (dayIndex >= _regsterConfig.DayRewards.Count - 1)
+                    if (dayIndex >= RewardManager.RegisterRewardConf.DayRewards.Count - 1)
             {
                 _ = _mqBus.Publish(new FinishedRegisterRewardMqEvent(request.Id));
             }
                     return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success,
-                        null, new RegisterRewardVm(RegisterRewardVm.RewardState.Over, 0, _regsterConfig.DayRewards));
+                        null, new RegisterRewardVm(RegisterRewardVm.RewardState.Over, 0, RewardManager.RegisterRewardConf.DayRewards));
                 }
                 else if (rewardInfo.GetDate.DateOfDayBegin() == nowDate)
                 {
                     return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success,
-                        null, new RegisterRewardVm(RegisterRewardVm.RewardState.Getted, rewardInfo.DayIndex, _regsterConfig.DayRewards));
+                        null, new RegisterRewardVm(RegisterRewardVm.RewardState.Getted, rewardInfo.DayIndex, RewardManager.RegisterRewardConf.DayRewards));
                 }
                 else
                 {
@@ -112,7 +110,7 @@ namespace Reward.Domain.CommandHandlers
                 }
             }
             return new WrappedResponse<RegisterRewardVm>(ResponseStatus.Success, null,
-                new RegisterRewardVm(RegisterRewardVm.RewardState.Available, dayIndex, _regsterConfig.DayRewards));
+                new RegisterRewardVm(RegisterRewardVm.RewardState.Available, dayIndex, RewardManager.RegisterRewardConf.DayRewards));
 
 
         }
@@ -131,7 +129,7 @@ namespace Reward.Domain.CommandHandlers
             {
                 return new WrappedResponse<RewardInfoVm>(ResponseStatus.Error);
             }
-            if (_regsterConfig.DayRewards.Count == 0)
+            if (RewardManager.RegisterRewardConf.DayRewards.Count == 0)
             {
                 return new WrappedResponse<RewardInfoVm>(ResponseStatus.Error);
             }
@@ -154,12 +152,12 @@ namespace Reward.Domain.CommandHandlers
                 }
                 if (rewardInfo == null)
                 {
-                    rewardCoins = _regsterConfig.DayRewards[dayIndex];
+                    rewardCoins = RewardManager.RegisterRewardConf.DayRewards[dayIndex];
                     dayIndex = 0;
                 }
                 else
                 {
-                    if (rewardInfo.DayIndex >= _regsterConfig.DayRewards.Count - 1)
+                    if (rewardInfo.DayIndex >= RewardManager.RegisterRewardConf.DayRewards.Count - 1)
                     {
                         return new WrappedResponse<RewardInfoVm>(ResponseStatus.Error);
                     }
@@ -170,7 +168,7 @@ namespace Reward.Domain.CommandHandlers
                     else
                     {
                         dayIndex = rewardInfo.DayIndex + 1;
-                        rewardCoins = _regsterConfig.DayRewards[dayIndex];
+                        rewardCoins = RewardManager.RegisterRewardConf.DayRewards[dayIndex];
                     }
                 }
 
@@ -178,7 +176,7 @@ namespace Reward.Domain.CommandHandlers
                 await Task.WhenAll(_redis.SetUserRegiserReward(rewardInfo), _registerRepository.ReplaceAndAddAsync(rewardInfo));
             }
             _ = _mqBus.Publish(new AddMoneyMqCmd(request.Id, rewardCoins, 0, AddReason.RegisterReward));
-            if (dayIndex >= _regsterConfig.DayRewards.Count - 1)
+            if (dayIndex >= RewardManager.RegisterRewardConf.DayRewards.Count - 1)
             {
                 _ = _mqBus.Publish(new FinishedRegisterRewardMqEvent(request.Id));
             }

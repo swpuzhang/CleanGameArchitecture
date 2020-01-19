@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using CommonMessages.MqCmds;
 using System.Linq;
 using Commons.Extenssions;
+using Reward.Domain.Manager;
 
 namespace Reward.Domain.EventHandlers
 {
@@ -20,13 +21,11 @@ namespace Reward.Domain.EventHandlers
         INotificationHandler<InvitedFriendRegisterdEvent>
     {
         private readonly IRewardRedisRepository _redis;
-        private readonly InviteRewardConfig _inviteConfig;
         private readonly IBusControl _mqBus;
 
-        public RewardEventHandler(IRewardRedisRepository redis, InviteRewardConfig inviteConfig, IBusControl mqBus)
+        public RewardEventHandler(IRewardRedisRepository redis, IBusControl mqBus)
         {
             _redis = redis;
-            _inviteConfig = inviteConfig;
             _mqBus = mqBus;
         }
 
@@ -43,7 +42,7 @@ namespace Reward.Domain.EventHandlers
             {
                 return;
             }
-            long rewardCoins = _inviteConfig.InviteRewards;
+            long rewardCoins = RewardManager.InviteRewardConf.InviteRewards;
             allInviters.ForEach(x => _mqBus.Publish(new AddMoneyMqCmd(x, rewardCoins, 0, Commons.Enums.AddReason.Invite)));
             await _redis.RemovInviteFriend(allInviters, notification.PlatformAccount);
         }

@@ -15,6 +15,7 @@ using Commons.Extenssions;
 using Reward.ViewModels;
 using Commons.Tools.KeyGen;
 using CommonMessages.MqCmds;
+using Reward.Domain.Manager;
 
 namespace Reward.Domain.CommandHandlers
 {
@@ -26,15 +27,12 @@ namespace Reward.Domain.CommandHandlers
         protected readonly IMediatorHandler _bus;
         private readonly IRewardRedisRepository _redis;
         private readonly IBusControl _mqBus;
-        private readonly AllGameActivityConfig _activityConfig;
         public ActivityCmdHandler(IRewardRedisRepository redis,
             IMediatorHandler bus,
-            AllGameActivityConfig regsterConfig, 
             IBusControl mqBus)
         {
             _redis = redis;
             _bus = bus;
-            _activityConfig = regsterConfig;
             _mqBus = mqBus;
         }
 
@@ -44,7 +42,7 @@ namespace Reward.Domain.CommandHandlers
             //通过配置获取今天所有的打牌活动activeId;
             DateTime tnow = DateTime.Now;
             List<Task<OneGameActivityInfo>> tasks = new List<Task<OneGameActivityInfo>>();
-            foreach (var oneActivitty in _activityConfig.AllGameConfigs)
+            foreach (var oneActivitty in RewardManager.GameActConf.AllGameConfigs)
             {
                 if (oneActivitty.ActivityType == request.Type)
                 {
@@ -58,7 +56,7 @@ namespace Reward.Domain.CommandHandlers
             List<OneGameActivityInfoVm> gameActivityVms = new List<OneGameActivityInfoVm>();
             foreach (var one in playActivityInfos)
             {
-                var oneConfig = _activityConfig.AllGameConfigs.Find(x => x.ActivityId == one.ActivityId);
+                var oneConfig = RewardManager.GameActConf.AllGameConfigs.Find(x => x.ActivityId == one.ActivityId);
                 var roomList = new List<OneRoomActivityInfoVm>();
                 foreach (var oneRoom in oneConfig.RoomConfigs)
                 {
@@ -90,13 +88,17 @@ namespace Reward.Domain.CommandHandlers
             CancellationToken cancellationToken)
         {
             DateTime tnow = DateTime.Now;
-            var roomConfig = _activityConfig.AllGameConfigs
+            var roomConfig = RewardManager.GameActConf.AllGameConfigs
                 .Find(x => x.ActivityId == request.ActId).RoomConfigs
                 .Find(x => x.SubId == request.SubId);
             using var locker = _redis.Locker(KeyGenTool.GenUserDayKey(tnow, request.Id, "GameActivity", request.ActId));
 
             await locker.LockAsync();
             var subAct = await _redis.GetGameActProgress(tnow, request.Id, request.ActId, request.SubId);
+            if (subAct == null)
+            {
+                return new WrappedResponse<RewardInfoVm>(ResponseStatus.Error);
+            }
 
             long rewardCoins = 0;
             if (subAct.State == 1)
@@ -144,7 +146,7 @@ namespace Reward.Domain.CommandHandlers
         public Task<Unit> Handle(AddActFromGamelogCommand request, CancellationToken cancellationToken)
         {
             DateTime tnow = DateTime.Now;
-            foreach( var oneAct in _activityConfig.AllGameConfigs)
+            foreach( var oneAct in RewardManager.GameActConf.AllGameConfigs)
             {
                 List<long> players = null;
                 if (oneAct.ActivityType == ActivityTypes.WinGame)

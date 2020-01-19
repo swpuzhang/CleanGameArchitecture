@@ -52,6 +52,10 @@ namespace Reward
                 var rabbitCfg = Configuration.GetSection("Rabbitmq");
                 Log.Information($"money uri:{rabbitCfg["Uri"]}Account");
                 x.AddRequestClient<GetAccountBaseInfoMqCmd>(new Uri($"{rabbitCfg["Uri"]}Account"));
+                x.AddRequestClient<GetAccountInfoMqCmd>(new Uri($"{rabbitCfg["Uri"]}Account"));
+                x.AddRequestClient<GetMoneyMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
+                x.AddRequestClient<AddMoneyMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
+
             });
         }
 

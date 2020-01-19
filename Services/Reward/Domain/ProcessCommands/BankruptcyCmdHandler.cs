@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using Reward.ViewModels;
 using Commons.Tools.KeyGen;
 using Money.Domain.ProcessCommands;
+using Reward.Domain.Manager;
+using CommonMessages.MqCmds;
+using Commons.Buses.MqBus;
 
 namespace Reward.Domain.CommandHandlers
 {
@@ -25,16 +28,16 @@ namespace Reward.Domain.CommandHandlers
     {
         protected readonly IMediatorHandler _bus;
         private readonly IRewardRedisRepository _rewardRedis;
-        private readonly BankruptcyConfig _bankruptcyConfig;
         private readonly IBusControl _mqBus;
+        private readonly IRequestClient<GetMoneyMqCmd> _getMoneyClient;
 
         public BankruptcyCommandHandler(IMediatorHandler bus, IRewardRedisRepository redis,
-            BankruptcyConfig bankruptcyConfig, IBusControl mqBus)
+             IBusControl mqBus, IRequestClient<GetMoneyMqCmd> getMoneyClient)
         {
             _bus = bus;
             _rewardRedis = redis;
-            _bankruptcyConfig = bankruptcyConfig;
             _mqBus = mqBus;
+            _getMoneyClient = getMoneyClient;
         }
 
         public async Task<WrappedResponse<BankruptcyInfoVm>> Handle(QueryBankruptcyCommand request, CancellationToken cancellationToken)
@@ -42,30 +45,56 @@ namespace Reward.Domain.CommandHandlers
             //查询当天redis记录
             DateTime tnow = DateTime.Now;
             var bankruptcyInfo = await _rewardRedis.GetBankruptcyInfo(tnow, request.Id);
-            int totalTimes = _bankruptcyConfig.BankruptcyRewards.Count;
+            int totalTimes = RewardManager.BankruptcyConf.BankruptcyRewards.Count;
             int curTimes;
             if (bankruptcyInfo == null)
             {
                 curTimes = 0;
-               
             }
             else
             {
                 curTimes = bankruptcyInfo.CurTimes;
             }
+            var getMoneyResponse = await _getMoneyClient.
+               GetResponseExt<GetMoneyMqCmd, WrappedResponse<MoneyMqResponse>>
+               (new GetMoneyMqCmd(request.Id));
+            var moneyInfo = getMoneyResponse.Message;
+            bool isAvailable = false;
+            if (moneyInfo.ResponseStatus == ResponseStatus.Success)
+            {
+                if (moneyInfo.Body.CurCoins < RewardManager.BankruptcyConf.BankruptcyLimit)
+                {
+                    isAvailable = true;
+                }
+            }
+            
             return new WrappedResponse<BankruptcyInfoVm>(ResponseStatus.Success, null,
                 new BankruptcyInfoVm(BankruptcyInfoVm.BankruptcyRewardType.Day, totalTimes, curTimes,
-                    _bankruptcyConfig.BankruptcyRewards));
+                    RewardManager.BankruptcyConf.BankruptcyRewards, isAvailable));
         }
 
         public async Task<WrappedResponse<RewardInfoVm>> Handle(GetBankruptcyRewardCommand request, CancellationToken cancellationToken)
         {
+            var getMoneyResponse = await _getMoneyClient.
+              GetResponseExt<GetMoneyMqCmd, WrappedResponse<MoneyMqResponse>>
+              (new GetMoneyMqCmd(request.Id));
+            var moneyInfo = getMoneyResponse.Message;
+            if (moneyInfo.ResponseStatus != ResponseStatus.Success)
+            {
+                return new WrappedResponse<RewardInfoVm>(ResponseStatus.RewardNotAvailable);
+                
+            }
+            if (moneyInfo.Body.CurCoins > RewardManager.BankruptcyConf.BankruptcyLimit)
+            {
+                return new WrappedResponse<RewardInfoVm>(ResponseStatus.RewardNotAvailable);
+            }
+
             DateTime tnow = DateTime.Now;
             using var locker = _rewardRedis.Locker(KeyGenTool.GenUserDayKey(tnow, request.Id, nameof(BankruptcyInfo)));
 
             await locker.LockAsync();
             var bankruptcyInfo = await _rewardRedis.GetBankruptcyInfo(tnow, request.Id);
-            int totalTimes = _bankruptcyConfig.BankruptcyRewards.Count;
+            int totalTimes = RewardManager.BankruptcyConf.BankruptcyRewards.Count;
             if (bankruptcyInfo == null)
             {
                 bankruptcyInfo = new BankruptcyInfo(0);
@@ -74,7 +103,7 @@ namespace Reward.Domain.CommandHandlers
             {
                 return new WrappedResponse<RewardInfoVm>(ResponseStatus.RewardNotAvailable);
             }
-            long rewardCoins = _bankruptcyConfig.BankruptcyRewards[bankruptcyInfo.CurTimes];
+            long rewardCoins = RewardManager.BankruptcyConf.BankruptcyRewards[bankruptcyInfo.CurTimes];
             ++bankruptcyInfo.CurTimes;
             await _rewardRedis.SetBankruptcyInfo(tnow, bankruptcyInfo);
             _ = _mqBus.Publish(new AddMoneyCommand(request.Id, rewardCoins, 0, AddReason.Bankruptcy));

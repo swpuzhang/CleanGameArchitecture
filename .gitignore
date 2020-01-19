@@ -41,3 +41,10 @@
 /Messages/SangongMessages/obj
 /Services/Reward/bin/Debug/netcoreapp3.1
 /Services/Reward/obj
+/Gateways/ApiGateway/.config
+/Gateways/ApiGateway/bin/Release/netcoreapp3.1
+/Gateways/ApiGateway/Properties/PublishProfiles
+/Messages/CommonMessages/bin/Release/netcoreapp3.1
+/Services/Reward/Reward/logs
+/work/GateWays/ApiGateway/ApiGateway/logs
+/work/GateWays/ApiGateway

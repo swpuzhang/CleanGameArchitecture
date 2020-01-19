@@ -36,7 +36,8 @@ namespace Account.MqConsumers
             await context.RespondAsync<WrappedResponse<GetAccountInfoMqResponse>>(new WrappedResponse<GetAccountInfoMqResponse>(ResponseStatus.Success, null, new GetAccountInfoMqResponse(context.Message.Id,
                 response.Body.PlatformAccount, response.Body.UserName, response.Body.Sex, response.Body.HeadUrl,
                 new GameInfoMq(response.Body.GameInfo.GameTimes, response.Body.GameInfo.WinTimes, response.Body.GameInfo.MaxWinCoins),
-                new LevelInfoMq(response.Body.LevelInfo.CurLevel, response.Body.LevelInfo.CurExp, response.Body.LevelInfo.NeedExp))));
+                new LevelInfoMq(response.Body.LevelInfo.CurLevel, response.Body.LevelInfo.CurExp, response.Body.LevelInfo.NeedExp),
+                response.Body.MoneyInfo.CurCoins, response.Body.MoneyInfo.CurDiamonds)));
         }
 
         public async Task Consume(ConsumeContext<GetAccountBaseInfoMqCmd> context)

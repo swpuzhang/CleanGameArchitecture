@@ -111,12 +111,13 @@ namespace Reward.ViewModels
         }
 
         public BankruptcyInfoVm(BankruptcyRewardType type, int totalTimes,
-            int curTimes, List<long> rewardConfig)
+            int curTimes, List<long> rewardConfig, bool isAvailable)
         {
             Type = type;
             TotalTimes = totalTimes;
             CurTimes = curTimes;
             RewardConfig = rewardConfig;
+            IsAvailable = isAvailable;
         }
 
         /// <summary>
@@ -134,6 +135,10 @@ namespace Reward.ViewModels
         /// 当前是第几次
         /// </summary>
         public int CurTimes { get; set; }
+        /// <summary>
+        /// 是否可领取
+        /// </summary>
+        public bool IsAvailable { get; set; }
         /// <summary>
         /// 破产几次的配置
         /// </summary>

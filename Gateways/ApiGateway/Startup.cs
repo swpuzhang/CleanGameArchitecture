@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Commons.Extenssions;
@@ -33,8 +34,9 @@ namespace ApiGateway
         {
             services.AddControllers();
             services.AddOcelot(
-                new ConfigurationBuilder().AddJsonFile(
-                    "Ocelot.json", optional: false, reloadOnChange: true)
+                new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true)
                 .Build())
                 .AddConsul();
                 //.AddConfigStoredInConsul();

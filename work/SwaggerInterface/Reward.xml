@@ -4,27 +4,6 @@
         <name>Reward</name>
     </assembly>
     <members>
-        <member name="T:Reward.Controllers.ActivityController">
-            <summary>
-            活动相关接口
-            </summary>
-        </member>
-        <member name="M:Reward.Controllers.ActivityController.QueryActivity(System.Int64)">
-            <summary>
-            查询活动
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Reward.Controllers.ActivityController.GetGameActReward(System.Int64,System.String,System.String)">
-            <summary>
-            获取打牌任务奖励
-            </summary>
-            <param name="id"></param>
-            <param name="activityId"></param>
-            <param name="subId"></param>
-            <returns></returns>
-        </member>
         <member name="T:Reward.Controllers.RewardController">
             <summary>
             账号相关操作
@@ -70,6 +49,22 @@
             领取破产奖励
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.QueryActivity(System.Int64)">
+            <summary>
+            查询活动
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reward.Controllers.RewardController.GetGameActReward(System.Int64,System.String,System.String)">
+            <summary>
+            获取打牌任务奖励
+            </summary>
+            <param name="id"></param>
+            <param name="activityId"></param>
+            <param name="subId"></param>
             <returns></returns>
         </member>
         <member name="P:Reward.Domain.Entitys.GameActivityConfig.ActivityId">
@@ -213,6 +208,11 @@
         <member name="P:Reward.ViewModels.BankruptcyInfoVm.CurTimes">
             <summary>
             当前是第几次
+            </summary>
+        </member>
+        <member name="P:Reward.ViewModels.BankruptcyInfoVm.IsAvailable">
+            <summary>
+            是否可领取
             </summary>
         </member>
         <member name="P:Reward.ViewModels.BankruptcyInfoVm.RewardConfig">

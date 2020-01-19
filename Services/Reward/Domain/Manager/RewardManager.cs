@@ -15,11 +15,11 @@ namespace Reward.Domain.Manager
             IBankruptcyConfigRepository bankrupt,
             IInviteRewardConfigRepository invite)
         {
-            GameActConf.AllGameConfigs = game.LoadMultiConfig().ToList();
-            RegisterRewardConf.DayRewards = register.LoadConfig().DayRewards;
-            LoginRewardConf.DayRewards = login.LoadConfig().DayRewards;
-            BankruptcyConf.BankruptcyRewards = bankrupt.LoadConfig().BankruptcyRewards;
-            InviteRewardConf.InviteRewards = invite.LoadConfig().InviteRewards;
+            GameActConf = new AllGameActivityConfig() { AllGameConfigs = game.LoadMultiConfig().ToList() };
+            RegisterRewardConf = register.LoadConfig();
+            LoginRewardConf = login.LoadConfig();
+            BankruptcyConf = bankrupt.LoadConfig();
+            InviteRewardConf = invite.LoadConfig();
         }
         public static AllGameActivityConfig GameActConf { get; private set; }
         public static RegisterRewardConfig RegisterRewardConf { get; private set; }
