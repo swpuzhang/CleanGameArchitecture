@@ -140,7 +140,7 @@ namespace Commons.Startup
         {
             app.UseSwagger(c =>
             {
-                c.RouteTemplate = "{documentName}/swagger.json";
+                c.RouteTemplate = "/{documentName}/swagger.json";
             });
             app.UseSwaggerUI(c =>
             {
