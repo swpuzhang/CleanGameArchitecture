@@ -48,3 +48,9 @@
 /Services/Reward/Reward/logs
 /work/GateWays/ApiGateway/ApiGateway/logs
 /work/GateWays/ApiGateway
+/Messages/SangongMessages/bin/Release/netcoreapp3.1
+/Services/Reward/.config
+/Services/Reward/bin/Release/netcoreapp3.1
+/Services/Reward/Properties/PublishProfiles
+/work/Services/Reward/Reward/logs
+/work/Services/Reward
