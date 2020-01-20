@@ -1,21 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using NSwag;
+using NSwag.AspNetCore;
+using NSwag.Generation.Processors;
+using NSwag.Generation.Processors.Contexts;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Text;*/
 
-namespace Commons.Startup
+/*namespace Commons.Startup
 {
+    
 
     public class SwaggerAddEnumDescriptions : IDocumentFilter
     {
@@ -153,4 +155,4 @@ namespace Commons.Startup
 
         }
     }
-}
+}*/

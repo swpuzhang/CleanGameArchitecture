@@ -30,13 +30,13 @@
     },
     {
       "UseServiceDiscovery": true,
-      "DownstreamPathTemplate": "/Account/swagger.json",
+      "DownstreamPathTemplate": "/swagger/Account/swagger.json",
       "DownstreamScheme": "http",
       "ServiceName": "Account",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       },
-      "UpstreamPathTemplate": "/Account/swagger.json",
+      "UpstreamPathTemplate": "/swagger/Account/swagger.json",
       "UpstreamHttpMethod": [
         [ "GET", "POST", "DELETE", "PUT" ]
       ],
@@ -44,13 +44,13 @@
     },
     {
       "UseServiceDiscovery": true,
-      "DownstreamPathTemplate": "/Money/swagger.json",
+      "DownstreamPathTemplate": "/swagger/Money/swagger.json",
       "DownstreamScheme": "http",
       "ServiceName": "Money",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       },
-      "UpstreamPathTemplate": "/Money/swagger.json",
+      "UpstreamPathTemplate": "/swagger/Money/swagger.json",
       "UpstreamHttpMethod": [
         [ "GET", "POST", "DELETE", "PUT" ]
       ],
@@ -58,13 +58,13 @@
     },
     {
       "UseServiceDiscovery": true,
-      "DownstreamPathTemplate": "/Reward/swagger.json",
+      "DownstreamPathTemplate": "/swagger/Reward/swagger.json",
       "DownstreamScheme": "http",
       "ServiceName": "Reward",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       },
-      "UpstreamPathTemplate": "/Reward/swagger.json",
+      "UpstreamPathTemplate": "/swagger/Reward/swagger.json",
       "UpstreamHttpMethod": [
         [ "GET", "POST", "DELETE", "PUT" ]
       ],

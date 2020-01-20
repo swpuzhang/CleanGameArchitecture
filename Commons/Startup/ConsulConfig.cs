@@ -1,23 +1,18 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text;
-
 namespace Commons.Startup
 {
-    
+
     public class ConsulOptions
     {
         public string HttpEndPoint { get; set; }
@@ -39,6 +34,7 @@ namespace Commons.Startup
         public static IApplicationBuilder UseConsul(this IApplicationBuilder app,
         IConfiguration configuration)
         {
+
             IConsulClient consul = app.ApplicationServices.GetRequiredService<IConsulClient>();
             IHostApplicationLifetime appLife = app.ApplicationServices
                 .GetRequiredService<IHostApplicationLifetime>();

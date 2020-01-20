@@ -51,7 +51,7 @@ namespace Commons.Startup
         public static void ConfigureCommon(IApplicationBuilder app, IConfiguration configuration)
         {
             RedisOpt.Start(configuration["redis:ConnectionString"]);
-            app.UseSwaggerService(configuration);
+            app.UseSwaggerService();
             app.UseConsul(configuration);
         }
 

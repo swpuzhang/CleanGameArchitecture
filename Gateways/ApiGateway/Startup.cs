@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using NSwag.AspNetCore;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
@@ -40,9 +40,9 @@ namespace ApiGateway
                 .Build())
                 .AddConsul();
                 //.AddConfigStoredInConsul();
-            services.AddSwaggerGen(options =>
+            services.AddOpenApiDocument(document =>
             {
-                options.SwaggerDoc("ApiGateway", new OpenApiInfo { Title = "ApiGateway", Version = "v1" });
+                document.DocumentName = "ApiGateway";
             });
         }
 
@@ -62,14 +62,14 @@ namespace ApiGateway
             {
                 endpoints.MapControllers();
             });
-            app.UseSwagger().UseSwaggerUI(options =>
+            app.UseOpenApi();
+            app.UseSwaggerUi3(options =>
             {
                 var apis = Configuration.GetSection("Services").Get<string[]>();
                 apis.ForEach(p =>
                 {
-                    options.SwaggerEndpoint($"/{p}/swagger.json", p);
+                    options.SwaggerRoutes.Add(new SwaggerUi3Route(p, $"/swagger/{p}/swagger.json "));
                 });
-                options.RoutePrefix = string.Empty;
             });
             app.UseOcelot().Wait();
         }
