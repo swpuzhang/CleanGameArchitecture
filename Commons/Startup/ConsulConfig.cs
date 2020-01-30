@@ -45,7 +45,7 @@ namespace Commons.Startup
             IOptions<ServiceOptions> serviceOptions = app.ApplicationServices
                 .GetRequiredService<IOptions<ServiceOptions>>();
             var addressIpv4Hosts = NetworkInterface.GetAllNetworkInterfaces()
-                .OrderByDescending(c => c.Speed)
+                //.OrderByDescending(c => c.Speed) linux不支持
                 .Where(c => c.NetworkInterfaceType != NetworkInterfaceType.Loopback
                        && c.OperationalStatus == OperationalStatus.Up);
             foreach (var item in addressIpv4Hosts)

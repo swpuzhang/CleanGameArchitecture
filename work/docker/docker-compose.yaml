@@ -55,7 +55,7 @@ services:
       - share-network 
       
   Account1:
-    image: ubuntu:latest
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
     working_dir: /CleanGameArchitecture/work/Services/Account
     command: "./Account"
     container_name: Account1172-16-144-116
