@@ -1,0 +1,13 @@
+.dockerignore
+.git
+.gitignore
+.vs
+.vscode
+**/*.*proj.user
+**/bin
+**/Dockerfile
+**/obj
+**/work
+**/Test
+**/logs
+**/*_logs

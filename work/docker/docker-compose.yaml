@@ -54,6 +54,21 @@ services:
     networks:
       - share-network 
       
+  Account1:
+    image: ubuntu:latest
+    working_dir: /CleanGameArchitecture/work/Services/Account
+    command: "./Account"
+    container_name: Account1172-16-144-116
+    
+    restart: always
+    privileged: true
+    hostname: Account172-16-144-116
+    volumes:
+    - "/CleanGame/work/Services/Account/:/CleanGameArchitecture/work/Services/Account"
+    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+    networks:
+      - share-network
+      
 networks:
   share-network:
     

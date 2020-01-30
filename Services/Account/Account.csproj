@@ -15,6 +15,7 @@
     <Content Remove="Account\**" />
     <EmbeddedResource Remove="Account\**" />
     <None Remove="Account\**" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
   </ItemGroup>
 
   <ItemGroup>
