@@ -1,0 +1,6 @@
+#--subnet=192.168.10.1/24 --gateway=192.168.10.1
+docker swarm init 或者 docker swarm join
+docker network create --driver=overlay --attachable share-network  
+
+docker run --network test-net --name some-redis -d redis
+

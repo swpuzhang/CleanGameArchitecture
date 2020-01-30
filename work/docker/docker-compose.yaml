@@ -1,0 +1,59 @@
+version: '3'
+services: 
+  consul:
+    image: consul:latest
+    command: "consul agent -server -bootstrap-expect=1 -ui -bind='0.0.0.0' -client='0.0.0.0' -data-dir=/CleanGame/work/consul/data"
+    container_name: consul172-16-144-116
+    restart: always
+    privileged: true
+    hostname: consul172-16-144-116
+    volumes:
+    - "/CleanGame/work/consul/data:/CleanGame/work/consul/data"
+    ports:
+    - "8500:8500"
+    networks:
+      - share-network
+         
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq172-16-144-116
+    restart: always
+    privileged: true
+    hostname: rabbitmq172-16-144-116
+    volumes:
+      - "/CleanGame/work/rabbitmq/log:/var/log/rabbitmq"
+      - "/CleanGame/work/rabbitmq/lib:/var/lib/rabbitmq"
+    ports:
+      - "15672:15672"
+    networks:
+      - share-network
+      
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb172-16-144-116
+    restart: always
+    privileged: true
+    hostname: mongodb172-16-144-116
+    volumes:
+      - "/CleanGame/work/mongodb/data/configdb:/data/configdb"
+      - "/CleanGame/work/mongodb/data/db:/data/db"
+    networks:
+      - share-network 
+  
+  redis:
+    image: redis:latest
+    command: "redis-server /etc/redis/redis.conf"
+    container_name: redis172-16-144-116
+    restart: always
+    privileged: true
+    hostname: redis172-16-144-116
+    volumes:
+      - "/CleanGame/work/redis/data:/var/lib/redis"
+      - "/CleanGame/work/redis/log/:/var/log/redis/"
+      - "/CleanGame/work/redis/conf/:/etc/redis/"
+    networks:
+      - share-network 
+      
+networks:
+  share-network:
+    

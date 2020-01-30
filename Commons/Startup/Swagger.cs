@@ -110,6 +110,7 @@ namespace Commons.Startup
 
     public static class Swagger
     {
+        private readonly static string projectName = "CleanGameArchitecture";
         public static void ConfigSwagger(this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -122,9 +123,8 @@ namespace Commons.Startup
                 c.OperationFilter<HttpHeaderFilter>();
                 c.DocumentFilter<SwaggerAddEnumDescriptions>();
                 string curPath = Directory.GetCurrentDirectory();
-                string dir = "CleanGameArchitecture";
-                int index = curPath.LastIndexOf(dir);
-                string basePath = curPath.Substring(0, index + dir.Length) + "/work/SwaggerInterface";
+                int index = curPath.LastIndexOf(projectName);
+                string basePath = curPath.Substring(0, index + projectName.Length) + "/work/SwaggerInterface";
                 var files = Directory.GetFiles(basePath, "*.xml");
                 foreach (var oneFile in files)
                 {
