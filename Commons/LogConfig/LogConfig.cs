@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using Commons.Tools.Time;
 
 namespace Commons.LogConfig
 {
@@ -20,6 +21,7 @@ namespace Commons.LogConfig
             {
                 name = appName + appendString;
             }
+            name += $"_{DateTime.Now.ToTimeStamp()}";
             return new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .Enrich.With(new ThreadIDEnricher(processid))
