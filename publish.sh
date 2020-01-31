@@ -1,12 +1,12 @@
-!#/bin/bash
+#! /bin/bash
 cd Services/Account
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o /app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
 cd ../../Services/Money
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o /app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
 cd ../../Services/Reward
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o /app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
 cd ../../Gateways/ApiGateway
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o /app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
 cd ../..
 cp Services/Account/app/Account /CleanGame/run/Services/Account
 cp Services/Money/app/Money /CleanGame/run/Services/Money
