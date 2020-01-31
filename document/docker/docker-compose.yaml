@@ -115,14 +115,14 @@ services:
     image: mcr.microsoft.com/dotnet/core/aspnet:3.1
     depends_on: 
       - consul
-    working_dir: /CleanGameArchitecture/run/GateWays/ApiGateway/
+    working_dir: /CleanGameArchitecture/run/Gateways/ApiGateway/
     command: "./ApiGateway"
     container_name: ApiGateway172-16-144-116
     restart: always
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-      - "/CleanGame/run/GateWays/ApiGateway:/CleanGameArchitecture/run/GateWays/ApiGateway"
+      - "/CleanGame/run/Gateways/ApiGateway:/CleanGameArchitecture/run/Gateways/ApiGateway"
     ports:
       - "10000:10000"
     networks:
