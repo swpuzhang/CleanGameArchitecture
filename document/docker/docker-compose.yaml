@@ -50,8 +50,8 @@ services:
     hostname: redis172-16-144-116
     volumes:
       - "/CleanGame/run/redis/data:/var/lib/redis"
-      - "/CleanGame/run/redis/log/:/var/log/redis/"
-      - "/CleanGame/run/redis/conf/:/etc/redis/"
+      - "/CleanGame/run/redis/log:/var/log/redis"
+      - "/CleanGame/run/redis/conf:/etc/redis"
     networks:
       - share-network 
       
