@@ -54,18 +54,74 @@ services:
     networks:
       - share-network 
       
-  Account1:
+  Account:
     image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
     working_dir: /CleanGameArchitecture/work/Services/Account
     command: "./Account"
-    container_name: Account1172-16-144-116
-    
+    container_name: Account172-16-144-116
     restart: always
     privileged: true
     hostname: Account172-16-144-116
     volumes:
     - "/CleanGame/work/Services/Account/:/CleanGameArchitecture/work/Services/Account"
     - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+    networks:
+      - share-network
+  
+  Money:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
+    working_dir: /CleanGameArchitecture/work/Services/Money
+    command: "./Money"
+    container_name: Money172-16-144-116
+    restart: always
+    privileged: true
+    hostname: Money172-16-144-116
+    volumes:
+    - "/CleanGame/work/Services/Money/:/CleanGameArchitecture/work/Services/Money"
+    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+    networks:
+      - share-network
+  Reward:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
+    working_dir: /CleanGameArchitecture/work/Services/Reward
+    command: "./Reward"
+    container_name: Reward172-16-144-116
+    restart: always
+    privileged: true
+    hostname: Reward172-16-144-116
+    volumes:
+    - "/CleanGame/work/Services/Reward/:/CleanGameArchitecture/work/Services/Reward"
+    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+    networks:
+      - share-network
+      
+  ApiGateway:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+    working_dir: /CleanGameArchitecture/work/GateWays/ApiGateway/
+    command: "./ApiGateway"
+    container_name: ApiGateway172-16-144-116
+    restart: always
+    privileged: true
+    hostname: Reward172-16-144-116
+    volumes:
+    - "/CleanGame/work/GateWays/ApiGateway/:/CleanGameArchitecture/work/GateWays/ApiGateway"
     networks:
       - share-network
       
