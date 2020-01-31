@@ -5,4 +5,21 @@ docker network create --driver=overlay --attachable share-network
 docker run --network test-net --name some-redis -d redis
 #开启docker挂载权限
 chmod a+rw /var/run/docker.sock 
+#创建目录
+mkdir /CleanGame/run/consul/data -p
+mkdir /CleanGame/run/rabbitmq/log -p
+mkdir /CleanGame/run/rabbitmq/lib -p
+mkdir /CleanGame/run/rabbitmq/conf -p
+mkdir /CleanGame/run/mongodb/data/configdb -p
+mkdir /CleanGame/run/mongodb/data/db -p
+mkdir /CleanGame/run/redis/data:/var/lib/redis -p
+mkdir /CleanGame/run/redis/log -p
+mkdir /CleanGame/run/redis/conf -p
+mkdir /CleanGame/run/SwaggerInterface -p
+mkdir /CleanGame/run/Services/Account -p
+mkdir /CleanGame/run/Services/Money -p
+mkdir /CleanGame/run/Services/Reward -p
+mkdir /CleanGame/run/GateWays/ApiGateway -p
+
+chmod 777 /CleanGame
 

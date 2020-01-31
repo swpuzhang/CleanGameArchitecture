@@ -88,7 +88,7 @@ services:
     privileged: true
     hostname: Money172-16-144-116
     volumes:
-      - "/CleanGame/run/Services/Money/:/CleanGameArchitecture/run/Services/Money"
+      - "/CleanGame/run/Services/Money:/CleanGameArchitecture/run/Services/Money"
       - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
@@ -106,7 +106,7 @@ services:
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-      - "/CleanGame/run/Services/Reward/:/CleanGameArchitecture/run/Services/Reward"
+      - "/CleanGame/run/Services/Reward:/CleanGameArchitecture/run/Services/Reward"
       - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
@@ -122,7 +122,7 @@ services:
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-      - "/CleanGame/run/GateWays/ApiGateway/:/CleanGameArchitecture/run/GateWays/ApiGateway"
+      - "/CleanGame/run/GateWays/ApiGateway:/CleanGameArchitecture/run/GateWays/ApiGateway"
     ports:
       - "10000:10000"
     networks:
