@@ -18,6 +18,7 @@ using Reward.Domain.Manager;
 using CommonMessages.MqCmds;
 using Commons.Buses.MqBus;
 
+
 namespace Reward.Domain.CommandHandlers
 {
     public class BankruptcyCommandHandler :
