@@ -29,7 +29,6 @@
     <ProjectReference Include="..\..\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\Messages\CommonMessages\CommonMessages.csproj" />
     <ProjectReference Include="..\..\Messages\SangongMessages\SangongMessages.csproj" />
-    <ProjectReference Include="..\Money\Money.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

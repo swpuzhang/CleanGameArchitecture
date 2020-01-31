@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Reward.ViewModels;
 using Commons.Tools.KeyGen;
-using Money.Domain.ProcessCommands;
 using Reward.Domain.Manager;
 using CommonMessages.MqCmds;
 using Commons.Buses.MqBus;
@@ -106,7 +105,7 @@ namespace Reward.Domain.CommandHandlers
             long rewardCoins = RewardManager.BankruptcyConf.BankruptcyRewards[bankruptcyInfo.CurTimes];
             ++bankruptcyInfo.CurTimes;
             await _rewardRedis.SetBankruptcyInfo(tnow, bankruptcyInfo);
-            _ = _mqBus.Publish(new AddMoneyCommand(request.Id, rewardCoins, 0, AddReason.Bankruptcy));
+            _ = _mqBus.Publish(new AddMoneyMqCmd(request.Id, rewardCoins, 0, AddReason.Bankruptcy));
             return new WrappedResponse<RewardInfoVm>(ResponseStatus.Success, null, new RewardInfoVm(rewardCoins));
 
         }
