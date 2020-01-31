@@ -114,7 +114,6 @@ namespace Commons.Startup
         public static void ConfigSwagger(this IServiceCollection services,
             IConfiguration configuration)
         {
-
             services.AddSwaggerGen(c =>
             {
                 //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
@@ -124,7 +123,7 @@ namespace Commons.Startup
                 c.DocumentFilter<SwaggerAddEnumDescriptions>();
                 string curPath = Directory.GetCurrentDirectory();
                 int index = curPath.LastIndexOf(projectName);
-                string basePath = curPath.Substring(0, index + projectName.Length) + "/work/SwaggerInterface";
+                string basePath = curPath.Substring(0, index + projectName.Length) + "/run/SwaggerInterface";
                 var files = Directory.GetFiles(basePath, "*.xml");
                 foreach (var oneFile in files)
                 {

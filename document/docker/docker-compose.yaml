@@ -2,13 +2,13 @@ version: '3'
 services: 
   consul:
     image: consul:latest
-    command: "consul agent -server -bootstrap-expect=1 -ui -bind='0.0.0.0' -client='0.0.0.0' -data-dir=/CleanGame/work/consul/data"
+    command: "consul agent -server -bootstrap-expect=1 -ui -bind='0.0.0.0' -client='0.0.0.0' -data-dir=/CleanGame/run/consul/data"
     container_name: consul172-16-144-116
     restart: always
     privileged: true
     hostname: consul172-16-144-116
     volumes:
-    - "/CleanGame/work/consul/data:/CleanGame/work/consul/data"
+    - "/CleanGame/run/consul/data:/CleanGame/run/consul/data"
     ports:
     - "8500:8500"
     networks:
@@ -21,8 +21,9 @@ services:
     privileged: true
     hostname: rabbitmq172-16-144-116
     volumes:
-      - "/CleanGame/work/rabbitmq/log:/var/log/rabbitmq"
-      - "/CleanGame/work/rabbitmq/lib:/var/lib/rabbitmq"
+      - "/CleanGame/run/rabbitmq/log:/var/log/rabbitmq"
+      - "/CleanGame/run/rabbitmq/lib:/var/lib/rabbitmq"
+      - "/CleanGame/run/rabbitmq/conf:/etc/rabbitmq"
     ports:
       - "15672:15672"
     networks:
@@ -35,8 +36,8 @@ services:
     privileged: true
     hostname: mongodb172-16-144-116
     volumes:
-      - "/CleanGame/work/mongodb/data/configdb:/data/configdb"
-      - "/CleanGame/work/mongodb/data/db:/data/db"
+      - "/CleanGame/run/mongodb/data/configdb:/data/configdb"
+      - "/CleanGame/run/mongodb/data/db:/data/db"
     networks:
       - share-network 
   
@@ -48,9 +49,9 @@ services:
     privileged: true
     hostname: redis172-16-144-116
     volumes:
-      - "/CleanGame/work/redis/data:/var/lib/redis"
-      - "/CleanGame/work/redis/log/:/var/log/redis/"
-      - "/CleanGame/work/redis/conf/:/etc/redis/"
+      - "/CleanGame/run/redis/data:/var/lib/redis"
+      - "/CleanGame/run/redis/log/:/var/log/redis/"
+      - "/CleanGame/run/redis/conf/:/etc/redis/"
     networks:
       - share-network 
       
@@ -61,15 +62,15 @@ services:
       - rabbitmq
       - mongodb
       - redis
-    working_dir: /CleanGameArchitecture/work/Services/Account
+    working_dir: /CleanGameArchitecture/run/Services/Account
     command: "./Account"
     container_name: Account172-16-144-116
     restart: always
     privileged: true
     hostname: Account172-16-144-116
     volumes:
-      - "/CleanGame/work/Services/Account/:/CleanGameArchitecture/work/Services/Account"
-      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+      - "/CleanGame/run/Services/Account/:/CleanGameArchitecture/run/Services/Account"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
   
@@ -80,15 +81,15 @@ services:
       - rabbitmq
       - mongodb
       - redis
-    working_dir: /CleanGameArchitecture/work/Services/Money
+    working_dir: /CleanGameArchitecture/run/Services/Money
     command: "./Money"
     container_name: Money172-16-144-116
     restart: always
     privileged: true
     hostname: Money172-16-144-116
     volumes:
-      - "/CleanGame/work/Services/Money/:/CleanGameArchitecture/work/Services/Money"
-      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+      - "/CleanGame/run/Services/Money/:/CleanGameArchitecture/run/Services/Money"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
   Reward:
@@ -98,15 +99,15 @@ services:
       - rabbitmq
       - mongodb
       - redis
-    working_dir: /CleanGameArchitecture/work/Services/Reward
+    working_dir: /CleanGameArchitecture/run/Services/Reward
     command: "./Reward"
     container_name: Reward172-16-144-116
     restart: always
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-      - "/CleanGame/work/Services/Reward/:/CleanGameArchitecture/work/Services/Reward"
-      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+      - "/CleanGame/run/Services/Reward/:/CleanGameArchitecture/run/Services/Reward"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
       
@@ -114,14 +115,14 @@ services:
     image: mcr.microsoft.com/dotnet/core/aspnet:3.1
     depends_on: 
       - consul
-    working_dir: /CleanGameArchitecture/work/GateWays/ApiGateway/
+    working_dir: /CleanGameArchitecture/run/GateWays/ApiGateway/
     command: "./ApiGateway"
     container_name: ApiGateway172-16-144-116
     restart: always
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-      - "/CleanGame/work/GateWays/ApiGateway/:/CleanGameArchitecture/work/GateWays/ApiGateway"
+      - "/CleanGame/run/GateWays/ApiGateway/:/CleanGameArchitecture/run/GateWays/ApiGateway"
     ports:
       - "10000:10000"
     networks:

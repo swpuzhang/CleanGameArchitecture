@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Commons</name>
+    </assembly>
+    <members>
+        <member name="M:Commons.Db.Redis.RedisOpt.Start(System.String)">
+            <summary>
+            第一次调用start延迟加载
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="T:Commons.Enums.AccountType">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.AccountType.Tourist">
+            <summary>
+            游客
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.AccountType.Facebook">
+            <summary>
+            Facebook
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.AccountType.Twitter">
+            <summary>
+            Twitter
+            </summary>
+        </member>
+        <member name="T:Commons.Enums.ResponseStatus">
+            <summary>
+            响应状态码
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.Error">
+            <summary>
+            通用错误
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.LoginError">
+            <summary>
+            登录失败
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.FieldError">
+            <summary>
+            字段错误
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.BusError">
+            <summary>
+            总线请求错误
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.Timeout">
+            <summary>
+            超时
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.AppIsDisconnected">
+            <summary>
+            客户端已经断开连接
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.GuidError">
+            <summary>
+            GUID错误， 可能碰到重复
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.TokenError">
+            <summary>
+            验证token失败
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.TokenExpiredPleaseRelogin">
+            <summary>
+            token过期, 重新登录
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.GetMoneyError">
+            <summary>
+            huoq
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.NoEnoughMoney">
+            <summary>
+            钱不够
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.IsAlreadyFriend">
+            <summary>
+            已经是好友
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.IsAlreadyApplyed">
+            <summary>
+            已经申请
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.IsFull">
+            <summary>
+            已经满了, 好友数量, 申请数量
+            </summary>
+        </member>
+        <member name="F:Commons.Enums.ResponseStatus.IsNotApplyed">
+            <summary>
+            该好友没有申请
+            </summary>
+        </member>
+        <member name="T:Commons.Models.Entity">
+            <summary>
+            实体
+            </summary>
+        </member>
+        <member name="T:Commons.Models.IAggregateRoot">
+            <summary>
+            聚合根
+            </summary>
+        </member>
+        <member name="T:Commons.Models.UserEntity">
+            <summary>
+            user实体
+            </summary>
+        </member>
+        <member name="T:Commons.Models.WrappedResponse`1">
+            <summary>
+            回复给客户端Response
+            </summary>
+            <typeparam name="TBody"></typeparam>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.ResponseStatus">
+            <summary>
+            响应状态码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.ErrorInfos">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:Commons.Models.WrappedResponse`1.Body">
+            <summary>
+            具体的响应内容
+            </summary>
+        </member>
+        <member name="M:Commons.Tools.KeyGen.KeyGenTool.GenKey(System.String,System.String[])">
+            <summary>
+            生成跟uid相关的key  userid|key1|key2
+            </summary>
+            <param name="key1"></param>
+            <param name="ps"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Commons.Tools.KeyGen.KeyGenTool.GenDayKey(System.DateTime,System.String,System.String[])">
+            <summary>
+            生成每天的Key
+            </summary>
+            <param name="time"></param>
+            <param name="key1"></param>
+            <param name="ps"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
