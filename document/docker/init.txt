@@ -19,7 +19,7 @@ mkdir /CleanGame/run/SwaggerInterface -p
 mkdir /CleanGame/run/Services/Account -p
 mkdir /CleanGame/run/Services/Money -p
 mkdir /CleanGame/run/Services/Reward -p
-mkdir /CleanGame/run/GateWays/ApiGateway -p
+mkdir /CleanGame/run/Gateways/ApiGateway -p
 
 chmod 777 /CleanGame
 
