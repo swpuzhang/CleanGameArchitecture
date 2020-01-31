@@ -68,8 +68,8 @@ services:
     privileged: true
     hostname: Account172-16-144-116
     volumes:
-    - "/CleanGame/work/Services/Account/:/CleanGameArchitecture/work/Services/Account"
-    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+      - "/CleanGame/work/Services/Account/:/CleanGameArchitecture/work/Services/Account"
+      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
     networks:
       - share-network
   
@@ -87,8 +87,8 @@ services:
     privileged: true
     hostname: Money172-16-144-116
     volumes:
-    - "/CleanGame/work/Services/Money/:/CleanGameArchitecture/work/Services/Money"
-    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+      - "/CleanGame/work/Services/Money/:/CleanGameArchitecture/work/Services/Money"
+      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
     networks:
       - share-network
   Reward:
@@ -105,10 +105,8 @@ services:
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-    - "/CleanGame/work/Services/Reward/:/CleanGameArchitecture/work/Services/Reward"
-    - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
-    ports:
-      - "10000:10000"
+      - "/CleanGame/work/Services/Reward/:/CleanGameArchitecture/work/Services/Reward"
+      - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
     networks:
       - share-network
       
@@ -123,7 +121,9 @@ services:
     privileged: true
     hostname: Reward172-16-144-116
     volumes:
-    - "/CleanGame/work/GateWays/ApiGateway/:/CleanGameArchitecture/work/GateWays/ApiGateway"
+      - "/CleanGame/work/GateWays/ApiGateway/:/CleanGameArchitecture/work/GateWays/ApiGateway"
+    ports:
+      - "10000:10000"
     networks:
       - share-network
       
