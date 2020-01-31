@@ -107,6 +107,8 @@ services:
     volumes:
     - "/CleanGame/work/Services/Reward/:/CleanGameArchitecture/work/Services/Reward"
     - "/CleanGame/work/SwaggerInterface:/CleanGameArchitecture/work/SwaggerInterface"
+    ports:
+      - "10000:10000"
     networks:
       - share-network
       
