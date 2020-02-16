@@ -1,4 +1,4 @@
-﻿using SangongMessages.MqCmds;
+﻿using GameMessages.MqCmds;
 using System;
 using System.Collections.Generic;
 using System.Text;

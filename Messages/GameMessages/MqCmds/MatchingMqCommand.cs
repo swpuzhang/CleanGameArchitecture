@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SangongMessages.MqCmds
+namespace GameMessages.MqCmds
 {
     public enum RoomTypes
     {

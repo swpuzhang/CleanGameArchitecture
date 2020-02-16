@@ -5,17 +5,18 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\..\run\SwaggerInterface\Reward.xml</DocumentationFile>
+    <DocumentationFile>..\..\run\SwaggerInterface\RoomMatch.xml</DocumentationFile>
     <OutputPath />
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Reward\**" />
-    <Content Remove="Reward\**" />
-    <EmbeddedResource Remove="Reward\**" />
-    <None Remove="Reward\**" />
+    <Compile Remove="RoomMatch\**" />
+    <Content Remove="RoomMatch\**" />
+    <EmbeddedResource Remove="RoomMatch\**" />
+    <None Remove="RoomMatch\**" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
@@ -28,6 +29,10 @@
     <ProjectReference Include="..\..\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\Messages\CommonMessages\CommonMessages.csproj" />
     <ProjectReference Include="..\..\Messages\GameMessages\GameMessages.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MqConsumers\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

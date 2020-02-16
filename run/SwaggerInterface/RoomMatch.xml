@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RoomMatch</name>
+    </assembly>
+    <members>
+        <member name="T:RoomMatch.Controllers.RoomMatchController">
+            <summary>
+            账号相关操作
+            </summary>
+        </member>
+        <member name="M:RoomMatch.Controllers.RoomMatchController.Login(RoomMatch.ViewModels.RoomMatchInfoVm)">
+            <summary>
+            handle接口
+            </summary>
+            <param name="RoomMatchInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RoomMatch.Domain.Entitys.CoinsRangeConfig.CoinsEnd">
+            <summary>
+            不包含ChipsEnd
+            </summary>
+        </member>
+        <member name="T:RoomMatch.Domain.Entitys.BlindRoomList">
+            <summary>
+            房间列表结果
+            </summary>
+        </member>
+        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.RoomType">
+            <summary>
+            房间类型 0 体力场, 1初2中3高
+            </summary>
+        </member>
+        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.MinCoins">
+            <summary>
+            最小准入
+            </summary>
+        </member>
+        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.MaxCoins">
+            <summary>
+            最大准入， 如果最大准入和最小准入相等， 那么就没有最大准入限制
+            </summary>
+        </member>
+        <member name="T:RoomMatch.Domain.Entitys.GetBlindRoomListResponse">
+            <summary>
+            获取房间列表
+            </summary>
+        </member>
+        <member name="T:RoomMatch.ViewModels.RoomMatchInfoVm">
+            <summary>
+            玩家账号
+            </summary>
+        </member>
+    </members>
+</doc>

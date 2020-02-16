@@ -55,3 +55,7 @@
 /work/Services/Reward/Reward/logs
 /work/Services/Reward
 /document/Consul/opt/consul/data
+/Messages/GameMessages/bin/Debug/netcoreapp3.1
+/Messages/GameMessages/obj
+/Services/RoomMatch/bin/Debug/netcoreapp3.1
+/Services/RoomMatch/obj

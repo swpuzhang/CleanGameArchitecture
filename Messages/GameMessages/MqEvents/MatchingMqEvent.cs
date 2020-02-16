@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SangongMessages.MqEvents
+namespace GameMessages.MqEvents
 {
     public class JoinGameRoomMqEvent
     {
