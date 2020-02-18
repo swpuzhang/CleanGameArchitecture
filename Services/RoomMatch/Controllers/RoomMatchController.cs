@@ -40,8 +40,7 @@ namespace RoomMatch.Controllers
         public async Task<WrappedResponse<GetBlindRoomListResponseVm>> GetBlindRoomList([FromHeader]long id)
         {
             var response = await OneThreadSynchronizationContext
-                .UserRequest<long, WrappedResponse<GetBlindRoomListResponseVm>>
-                    (id, _service.GetBlindRoomList);
+                .UserRequest(id, _service.GetBlindRoomList);
             return response;
         }
 
@@ -49,7 +48,7 @@ namespace RoomMatch.Controllers
         public async Task<WrappedResponse<RoomMatchResponseVm>> BlindMatching([FromHeader]long id, long blind)
         {
 
-            return await OneThreadSynchronizationContext.UserRequest(id, blind, _service.BlindMatching);
+            return await OneThreadSynchronizationContext.UserRequest(id, blind, _service.BlindMatch);
         }
     }
 }

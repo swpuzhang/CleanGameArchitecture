@@ -9,12 +9,23 @@ using System.Threading.Tasks;
 
 namespace RoomMatch.Domain.ProcessCommands
 {
-    public class RoomMatchCommand : ProcessCommand<WrappedResponse<RoomMatchResponseVm>>
+    public class PlaynowCommand : ProcessCommand<WrappedResponse<RoomMatchResponseVm>>
     {
-        public RoomMatchInfo Info { get; private set; }
-        public RoomMatchCommand(RoomMatchInfo info)
+        public long Id { get; private set; }
+        public PlaynowCommand(long id)
         {
-            Info = info;
+            Id = id;
+        }
+    }
+
+    public class BlindMatchCommand : ProcessCommand<WrappedResponse<RoomMatchResponseVm>>
+    {
+        public long Id { get; private set; }
+        public long Blind { get; private set; }
+        public BlindMatchCommand(long id, long blind)
+        {
+            Id = id;
+            Blind = blind;
         }
     }
 }

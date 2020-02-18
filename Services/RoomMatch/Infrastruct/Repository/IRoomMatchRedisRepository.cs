@@ -10,9 +10,10 @@ namespace RoomMatch.Infrastruct.Repository
 {
     public interface IRoomMatchRedisRepository : IRedisRepository, IDependency
     {
-        
-        Task SetRoomMatchInfo(RoomMatchInfo info);
 
-        Task<RoomMatchInfo> GetRoomMatchInfo(long id);
+        Task SetUserRoomInfo(UserRoomInfo info);
+        Task<UserRoomInfo> GetUserRoomInfo(long id);
+
+        Task DeleteUserRoomInfo(long id);
     }
 }

@@ -12,9 +12,9 @@ namespace GameMessages.MqCmds
         High
     }
 
-    public class RoomIdMapConfigMqCommand
+    public class RoomIdMapConfigMqCmd
     {
-        public RoomIdMapConfigMqCommand(List<KeyValuePair<string, string>> config)
+        public RoomIdMapConfigMqCmd(List<KeyValuePair<string, string>> config)
         {
             Config = config;
         }
@@ -23,13 +23,13 @@ namespace GameMessages.MqCmds
     }
 
 
-    public class CreateRoomMqCommand
+    public class CreateRoomMqCmd
     {
-        public CreateRoomMqCommand()
+        public CreateRoomMqCmd()
         {
         }
 
-        public CreateRoomMqCommand(string roomId, string gameKey,
+        public CreateRoomMqCmd(string roomId, string gameKey,
             long blind, long minCoins, long maxCoins,
             int tipsPersent, int seatCount, long minCarry, long maxCarry, RoomTypes roomType)
         {
@@ -60,9 +60,9 @@ namespace GameMessages.MqCmds
         public RoomTypes RoomType { get; private set; }
     }
 
-    public class JoinGameRoomMqCommand
+    public class JoinGameRoomMqCmd
     {
-        public JoinGameRoomMqCommand(long id, string roomId, string gameKey)
+        public JoinGameRoomMqCmd(long id, string roomId, string gameKey)
         {
             Id = id;
             RoomId = roomId;
@@ -115,10 +115,10 @@ namespace GameMessages.MqCmds
 
     
 
-    public class SyncGameRoomMqCommand
+    public class SyncGameRoomMqCmd
     {
 
-        public SyncGameRoomMqCommand(string gameKey, string matchingGroup, List<SyncRoomInfo> syncInfo)
+        public SyncGameRoomMqCmd(string gameKey, string matchingGroup, List<SyncRoomInfo> syncInfo)
         {
 
             GameKey = gameKey;
@@ -132,9 +132,9 @@ namespace GameMessages.MqCmds
         
     }
 
-    public class UserApplySitMqCommand
+    public class UserApplySitMqCmd
     {
-        public UserApplySitMqCommand(long id, string roomId, string gameKey, long blind)
+        public UserApplySitMqCmd(long id, string roomId, string gameKey, long blind)
         {
             Id = id;
             RoomId = roomId;

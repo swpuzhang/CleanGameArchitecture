@@ -12,7 +12,7 @@ namespace RoomMatch.Application.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<RoomMatchInfoVm, RoomMatchInfo>().ReverseMap();
+           
         }
     }
 }

@@ -16,31 +16,60 @@ using CommonMessages.MqCmds;
 using MassTransit;
 using Commons.Buses.MqBus;
 using Serilog;
+using RoomMatch.Manager;
 
 namespace RoomMatch.Domain.ProcessCommands
 {
-    public class RoomMatchCmdHandler : IRequestHandler<RoomMatchCommand, WrappedResponse<RoomMatchResponseVm>>
+    public class RoomMatchCmdHandler : 
+        IRequestHandler<PlaynowCommand, WrappedResponse<RoomMatchResponseVm>>,
+        IRequestHandler<BlindMatchCommand, WrappedResponse<RoomMatchResponseVm>>
     {
-        
-        /*private readonly IRoomMatchRedisRepository _RoomMatchRedisRep;
-        private readonly IRoomMatchInfoRepository _RoomMatchRep;
-        private readonly IMediatorHandler _bus;
 
-        public RoomMatchCmdHandler(IRoomMatchRedisRepository RoomMatchRedisRep, IRoomMatchInfoRepository RoomMatchRep,
-            IMediatorHandler bus)
+        protected readonly IMediatorHandler _bus;
+        private readonly IRequestClient<GetMoneyMqCmd> _moneyClient;
+ 
+        public RoomMatchCmdHandler(
+            IMediatorHandler bus,
+            IRequestClient<GetMoneyMqCmd> moneyClient)
         {
-            _RoomMatchRedisRep = RoomMatchRedisRep;
-            _RoomMatchRep = RoomMatchRep;
             _bus = bus;
-        }*/
+            _moneyClient = moneyClient;
+        }
 
-        public  Task<WrappedResponse<RoomMatchResponseVm>> Handle(RoomMatchCommand request, CancellationToken cancellationToken)
+        public async Task<WrappedResponse<RoomMatchResponseVm>> Handle(PlaynowCommand request, CancellationToken cancellationToken)
         {
-            
-            WrappedResponse<RoomMatchResponseVm> response = new WrappedResponse<RoomMatchResponseVm>(ResponseStatus.LoginError,
-               null, null);
+            //获取玩家金币
+            //根据金币判断玩家的场次
+            var moneyResponse = await _moneyClient.GetResponseExt<GetMoneyMqCmd, WrappedResponse<MoneyMqResponse>>(new GetMoneyMqCmd(request.Id));
+            if (moneyResponse.Message.ResponseStatus != ResponseStatus.Success)
+            {
+                return new WrappedResponse<RoomMatchResponseVm>(moneyResponse.Message.ResponseStatus, null);
+            }
+            long curCoins = moneyResponse.Message.Body.CurCoins;
+            if (!MatchManager.GetBlindFromCoins(curCoins, out var blind))
+            {
+                return new WrappedResponse<RoomMatchResponseVm>
+                    (ResponseStatus.NoEnoughMoney, null, null);
+            }
+            var response = await MatchManager.MatchRoom(request.Id, blind, "");
+            //BodyResponse<SangongMatchingResponseInfo> response = new BodyResponse<SangongMatchingResponseInfo>(StatusCodeDefines.LoginError, null, null);
+            return response;
+        }
 
-            return Task.FromResult(response);
+        public async Task<WrappedResponse<RoomMatchResponseVm>> Handle(BlindMatchCommand request, CancellationToken cancellationToken)
+        {
+            var moneyResponse = await _moneyClient.GetResponseExt<GetMoneyMqCmd, WrappedResponse<MoneyMqResponse>>(new GetMoneyMqCmd(request.Id));
+            if (moneyResponse.Message.ResponseStatus != ResponseStatus.Success)
+            {
+                return new WrappedResponse<RoomMatchResponseVm>(moneyResponse.Message.ResponseStatus, null);
+            }
+            long curCoins = moneyResponse.Message.Body.CurCoins;
+            if (!RoomManager.CoinsIsAvailable(curCoins, request.Blind))
+            {
+                return new WrappedResponse<RoomMatchResponseVm>(ResponseStatus.NoEnoughMoney, null);
+            }
+            var response = await MatchManager.MatchRoom(request.Id, request.Blind, "");
+            return response;
         }
     }
 }

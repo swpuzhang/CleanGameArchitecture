@@ -10,18 +10,20 @@ namespace RoomMatch.Infrastruct.Repository
 {
     public class RoomMatchRedisRepository : RedisRepository, IRoomMatchRedisRepository
     {
-        public Task<RoomMatchInfo> GetRoomMatchInfo(long id)
+        public Task<UserRoomInfo> GetUserRoomInfo(long id)
         {
-            return RedisOpt.GetStringAsync<RoomMatchInfo>(KeyGenTool.GenUserKey(id,
-                nameof(RoomMatchInfo)));
+            return RedisOpt.GetStringAsync<UserRoomInfo>(KeyGenTool.GenUserKey(id, nameof(UserRoomInfo)));
         }
 
-
-        public Task SetRoomMatchInfo(RoomMatchInfo info)
+        public Task SetUserRoomInfo(UserRoomInfo info)
         {
-            return RedisOpt.SetStringAsync(KeyGenTool.GenUserKey(info.Id,
-               nameof(RoomMatchInfo)), info, TimeSpan.FromDays(7));
+            return RedisOpt.SetStringAsync<UserRoomInfo>(KeyGenTool.GenUserKey(info.Id, nameof(UserRoomInfo)),
+                info, TimeSpan.FromHours(1));
         }
 
+        public Task DeleteUserRoomInfo(long id)
+        {
+            return RedisOpt.DeleteKeyAsync(KeyGenTool.GenUserKey(id, nameof(UserRoomInfo)));
+        }
     }
 }

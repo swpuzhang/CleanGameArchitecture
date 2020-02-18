@@ -6,14 +6,13 @@
     <members>
         <member name="T:RoomMatch.Controllers.RoomMatchController">
             <summary>
-            账号相关操作
+            房间列表和房间匹配
             </summary>
         </member>
-        <member name="M:RoomMatch.Controllers.RoomMatchController.Login(RoomMatch.ViewModels.RoomMatchInfoVm)">
+        <member name="M:RoomMatch.Controllers.RoomMatchController.PlayNow(System.Int64)">
             <summary>
-            handle接口
+            Playnow 接口
             </summary>
-            <param name="RoomMatchInfo"></param>
             <returns></returns>
         </member>
         <member name="P:RoomMatch.Domain.Entitys.CoinsRangeConfig.CoinsEnd">
@@ -21,34 +20,45 @@
             不包含ChipsEnd
             </summary>
         </member>
-        <member name="T:RoomMatch.Domain.Entitys.BlindRoomList">
+        <member name="T:RoomMatch.Domain.Models.BlindRoomList">
             <summary>
             房间列表结果
             </summary>
         </member>
-        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.RoomType">
+        <member name="P:RoomMatch.Domain.Models.BlindRoomList.RoomType">
             <summary>
             房间类型 0 体力场, 1初2中3高
             </summary>
         </member>
-        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.MinCoins">
+        <member name="P:RoomMatch.Domain.Models.BlindRoomList.MinCoins">
             <summary>
             最小准入
             </summary>
         </member>
-        <member name="P:RoomMatch.Domain.Entitys.BlindRoomList.MaxCoins">
+        <member name="P:RoomMatch.Domain.Models.BlindRoomList.MaxCoins">
             <summary>
             最大准入， 如果最大准入和最小准入相等， 那么就没有最大准入限制
             </summary>
         </member>
-        <member name="T:RoomMatch.Domain.Entitys.GetBlindRoomListResponse">
+        <member name="M:RoomMatch.Manager.RoomManager.GetLeastGroup">
+            <summary>
+            获取人数最少的那个组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RoomMatch.ViewModels.GetBlindRoomListResponseVm">
             <summary>
             获取房间列表
             </summary>
         </member>
-        <member name="T:RoomMatch.ViewModels.RoomMatchInfoVm">
+        <member name="T:RoomMatch.ViewModels.RoomMatchResponseVm">
+             <summary>
+            匹配房间结果
+             </summary>
+        </member>
+        <member name="P:RoomMatch.ViewModels.RoomMatchResponseVm.GameKey">
             <summary>
-            玩家账号
+            请求gameserver的Key
             </summary>
         </member>
     </members>

@@ -1,10 +1,11 @@
 ﻿using GameMessages.MqCmds;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace RoomMatch.ViewModels
-{ 
+namespace RoomMatch.Domain.Models
+{
     public class RoomInfo : IComparable<RoomInfo>
     {
         public const int MAX_USER_NUM = 7;
@@ -32,9 +33,9 @@ namespace RoomMatch.ViewModels
         public long Blind { get; private set; }
 
         public bool IsFull() => UserCount == MAX_USER_NUM;
-      
+
         public bool IsEmpty() => UserCount == 0;
-     
+
         public int CompareTo(RoomInfo other)
         {
             if (UserCount == other.UserCount)
@@ -42,7 +43,7 @@ namespace RoomMatch.ViewModels
                 return RoomId.CompareTo(other.RoomId);
             }
             return -UserCount.CompareTo(other.UserCount);
-           
+
         }
     }
 
@@ -79,13 +80,5 @@ namespace RoomMatch.ViewModels
         /// 最大准入， 如果最大准入和最小准入相等， 那么就没有最大准入限制
         /// </summary>
         public long MaxCoins { get; set; }
-    }
-
-    /// <summary>
-    /// 获取房间列表
-    /// </summary>
-    public class GetBlindRoomListResponseVm
-    {
-        public List<BlindRoomList> RoomList { get; set; }
     }
 }

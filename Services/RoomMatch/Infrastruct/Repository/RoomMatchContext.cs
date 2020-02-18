@@ -11,15 +11,17 @@ namespace RoomMatch.Infrastruct.Repository
 {
     public interface IRoomMatchContext : IDependency
     {
-        public IMongoCollection<RoomMatchInfo> RoomMatchInfos { get;}
+        public IMongoCollection<CoinsRangeConfig> CoinsRangeConfigs { get; }
+        public IMongoCollection<RoomListConfig> RoomListConfigs { get; }
     }
-    public class RoomMatchContext : MongoContext, IRoomMatchContext
+    public class AccountContext : MongoContext, IRoomMatchContext
     {
-        public IMongoCollection<RoomMatchInfo> RoomMatchInfos { get; }
-       
-        public RoomMatchContext(IMongoSettings settings) : base(settings)
+        public IMongoCollection<CoinsRangeConfig> CoinsRangeConfigs { get; }
+        public IMongoCollection<RoomListConfig> RoomListConfigs { get; }
+        public AccountContext(IMongoSettings settings) : base(settings)
         {
-            RoomMatchInfos = base._database.GetCollection<RoomMatchInfo>(typeof(RoomMatchInfo).Name);
+            CoinsRangeConfigs = base._database.GetCollection<CoinsRangeConfig>(nameof(CoinsRangeConfig));
+            RoomListConfigs = base._database.GetCollection<RoomListConfig>(nameof(RoomListConfig));
         }
     }
 }

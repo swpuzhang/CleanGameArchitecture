@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace RoomMatch.Infrastruct.Repository
 {
-    public interface IRoomMatchInfoRepository : IMongoUserRepository<RoomMatchInfo>, IDependency
+    public interface ICoinsRangeConfigRepository : IMongoConfigRepository<CoinsRangeConfig>, IDependency
+    { 
+    }
+
+    public interface IRoomListConfigRepository : IMongoConfigRepository<RoomListConfig>, IDependency
     {
-       
+
     }
 }
