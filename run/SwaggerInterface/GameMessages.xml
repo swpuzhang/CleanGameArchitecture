@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GameMessages</name>
+    </assembly>
+    <members>
+        <member name="T:GameMessages.MqCmds.RoomTypes">
+            <summary>
+            房间类型
+            </summary>
+        </member>
+    </members>
+</doc>

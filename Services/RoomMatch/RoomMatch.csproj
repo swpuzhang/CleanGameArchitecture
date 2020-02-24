@@ -16,7 +16,6 @@
     <EmbeddedResource Remove="RoomMatch\**" />
     <None Remove="RoomMatch\**" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
@@ -29,10 +28,6 @@
     <ProjectReference Include="..\..\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\Messages\CommonMessages\CommonMessages.csproj" />
     <ProjectReference Include="..\..\Messages\GameMessages\GameMessages.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MqConsumers\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

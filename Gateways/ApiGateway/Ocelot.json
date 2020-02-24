@@ -30,6 +30,21 @@
     },
     {
       "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/RoomMatch/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "RoomMatch",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/RoomMatch/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+
+    {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/Account/swagger.json",
       "DownstreamScheme": "http",
       "ServiceName": "Account",
@@ -65,6 +80,20 @@
         "Type": "RoundRobin"
       },
       "UpstreamPathTemplate": "/Reward/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/RoomMatch/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "RoomMatch",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/RoomMatch/swagger.json",
       "UpstreamHttpMethod": [
         [ "GET", "POST", "DELETE", "PUT" ]
       ],

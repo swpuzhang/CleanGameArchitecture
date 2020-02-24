@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameMessages.MqCmds
 {
+
+    /// <summary>
+    /// 房间类型
+    /// </summary>
     public enum RoomTypes
     {
         Bankruptcy,

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonMessages</name>
+    </assembly>
+    <members>
+        <member name="P:CommonMessages.MqEvents.LoginMqEvent.Type">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.InviteFriendMqEvent.Id">
+            <summary>
+            邀请的玩家ID
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.InviteFriendMqEvent.PlatformAccount">
+            <summary>
+            被邀请的平台账号
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.InviteFriendMqEvent.Type">
+            <summary>
+            被邀请的平台类型
+            </summary>
+        </member>
+        <member name="T:CommonMessages.MqEvents.ApplyedAddFriendMqEvent">
+            <summary>
+            请求添加好友事件
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.ApplyedAddFriendMqEvent.ApplyId">
+            <summary>
+            请求Id
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.MoneyChangedMqEvent.CoinsChangeCount">
+            <summary>
+            变化的金币数量
+            </summary>
+        </member>
+        <member name="P:CommonMessages.MqEvents.MoneyChangedMqEvent.DiamondsChangeCount">
+            <summary>
+            变化的砖石数量
+            </summary>
+        </member>
+    </members>
+</doc>

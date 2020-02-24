@@ -15,7 +15,7 @@ namespace Money.MqConsumers
     public class RoomMatchConsumer :
          OneThreadConsumer<SyncGameRoomMqCmd>
     {
-        private IRoomMatchService _service;
+        private readonly IRoomMatchService _service;
 
 
         public RoomMatchConsumer(IRoomMatchService service)
@@ -32,7 +32,7 @@ namespace Money.MqConsumers
     public class JoinGameRoomConsumer :
        OneThreadConsumer<JoinGameRoomMqEvent>
     {
-        IRoomMatchService _service;
+        private readonly IRoomMatchService _service;
 
         public JoinGameRoomConsumer(IRoomMatchService service)
         {
@@ -48,7 +48,7 @@ namespace Money.MqConsumers
     public class LeaveGameRoomConsumer :
         OneThreadConsumer<LeaveGameRoomMqEvent>
     {
-        IRoomMatchService _service;
+        private readonly IRoomMatchService _service;
 
         public LeaveGameRoomConsumer(IRoomMatchService service)
         {
@@ -65,7 +65,7 @@ namespace Money.MqConsumers
     public class UserApplySitConsumer :
         OneThreadConsumer<UserApplySitMqCmd, WrappedResponse<NullBody>>
     {
-        IRoomMatchService _service;
+        private readonly IRoomMatchService _service;
 
         public UserApplySitConsumer(IRoomMatchService service)
         {
@@ -82,7 +82,7 @@ namespace Money.MqConsumers
     public class UserSitFailedConsumer :
        OneThreadConsumer<UserSitFailedMqEvent>
     {
-        IRoomMatchService _service;
+        private readonly IRoomMatchService _service;
 
         public UserSitFailedConsumer(IRoomMatchService service)
         {

@@ -59,7 +59,7 @@ namespace Commons.Threading
 
 		private readonly int mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
-        BlockingCollection<Action> _queue = new BlockingCollection<Action>();
+        private readonly BlockingCollection<Action> _queue = new BlockingCollection<Action>();
 
         //private Action a;
 
