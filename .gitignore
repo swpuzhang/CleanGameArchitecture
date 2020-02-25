@@ -61,3 +61,5 @@
 /Services/RoomMatch/obj
 /Services/Reward/Reward_logs
 /Services/RoomMatch/RoomMatch_logs
+/Gateways/WSGateway/bin/Debug/netcoreapp3.1
+/Gateways/WSGateway/obj

@@ -130,6 +130,146 @@
             user实体
             </summary>
         </member>
+        <member name="T:Commons.Models.ToAppRequest">
+            <summary>
+            Server推送
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRequest.MessageId">
+            <summary>
+            消息的唯一码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRequest.ReqName">
+            <summary>
+            请求的消息名
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRequest.ReqData">
+            <summary>
+            请求的消息数据
+            </summary>
+        </member>
+        <member name="T:Commons.Models.ToAppRoomRequest">
+            <summary>
+            推动给APP的房间消息
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRoomRequest.MessageId">
+            <summary>
+            消息的唯一码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRoomRequest.GameKey">
+            <summary>
+            gamekey 标识哪个gamesvr
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRoomRequest.RoomId">
+            <summary>
+            标识那个房间
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRoomRequest.ReqName">
+            <summary>
+            请求的消息名
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppRoomRequest.ReqData">
+            <summary>
+            请求的消息数据
+            </summary>
+        </member>
+        <member name="T:Commons.Models.ServerRequest">
+            <summary>
+            Server内部请求
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ServerRequest.MessageId">
+            <summary>
+            消息的唯一码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ServerRequest.ReqName">
+            <summary>
+            请求的消息名
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ServerRequest.ReqData">
+            <summary>
+            请求的消息数据
+            </summary>
+        </member>
+        <member name="T:Commons.Models.GameServerRequest">
+            <summary>
+            GameServer内部请求
+            </summary>
+        </member>
+        <member name="P:Commons.Models.GameServerRequest.MessageId">
+            <summary>
+            消息的唯一码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.GameServerRequest.ReqName">
+            <summary>
+            请求的消息名
+            </summary>
+        </member>
+        <member name="P:Commons.Models.GameServerRequest.ReqData">
+            <summary>
+            请求的消息数据
+            </summary>
+        </member>
+        <member name="P:Commons.Models.GameServerRequest.GameKey">
+            <summary>
+            gamekey 标识哪个gamesvr
+            </summary>
+        </member>
+        <member name="P:Commons.Models.GameServerRequest.RoomId">
+            <summary>
+            标识那个房间
+            </summary>
+        </member>
+        <member name="T:Commons.Models.AppRequest">
+            <summary>
+            APP主动请求
+            </summary>
+        </member>
+        <member name="P:Commons.Models.AppRequest.ReqName">
+            <summary>
+            请求的消息名
+            </summary>
+        </member>
+        <member name="P:Commons.Models.AppRequest.ReqData">
+            <summary>
+            请求的消息数据
+            </summary>
+        </member>
+        <member name="T:Commons.Models.AppRoomRequest">
+            <summary>
+            APP请求房间
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToAppResponse.Data">
+            <summary>
+            消息数据
+            </summary>
+        </member>
+        <member name="T:Commons.Models.ToServerResponse">
+            <summary>
+            response
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToServerResponse.MessageId">
+            <summary>
+            返回请求消息的唯一码
+            </summary>
+        </member>
+        <member name="P:Commons.Models.ToServerResponse.Data">
+            <summary>
+            消息数据
+            </summary>
+        </member>
         <member name="T:Commons.Models.WrappedResponse`1">
             <summary>
             回复给客户端Response

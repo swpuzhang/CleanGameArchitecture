@@ -10,6 +10,7 @@ using Commons.Startup;
 using Serilog;
 using Commons.LogConfig;
 using Autofac.Extensions.DependencyInjection;
+using Commons.Threading;
 
 namespace RoomMatch
 {
@@ -21,7 +22,8 @@ namespace RoomMatch
             var config = ConfigStartup.GetConfiguration(args);
             Log.Logger = LogConfig.CreateSerilogLogger(config, AppName);
             Log.Information("CreateHostBuilder ({ApplicationContext})...", AppName);
-            CreateHostBuilder(args, config).Build().Run();
+            CreateHostBuilder(args, config).Build().RunAsync();
+            OneThreadSynchronizationContext.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuratioin) =>

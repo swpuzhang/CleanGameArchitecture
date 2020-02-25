@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomMatch", "Services\RoomM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameMessages", "Messages\GameMessages\GameMessages.csproj", "{3556E281-58A2-42C3-B87F-C2150A4B0C2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSGateway", "Gateways\WSGateway\WSGateway.csproj", "{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{3556E281-58A2-42C3-B87F-C2150A4B0C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3556E281-58A2-42C3-B87F-C2150A4B0C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3556E281-58A2-42C3-B87F-C2150A4B0C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{F2D0082B-236C-453B-A810-8CD4DDE891C9} = {877744DE-EEF1-4531-9FD3-6540C7DFC3BD}
 		{4526213A-8D74-463B-864F-9CA3B120F001} = {F897E75E-FEEC-44DA-98BC-A39BCEDAF674}
 		{3556E281-58A2-42C3-B87F-C2150A4B0C2B} = {877744DE-EEF1-4531-9FD3-6540C7DFC3BD}
+		{D2E1ABF7-6BC9-4E4B-9658-F76F220B7397} = {1C1E0BB5-3971-4AB0-9B25-47EBA20EA6C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DAD6C4E-9516-4F36-9586-A98DD56F7AC4}
