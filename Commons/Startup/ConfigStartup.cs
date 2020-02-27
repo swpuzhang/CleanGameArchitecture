@@ -28,7 +28,7 @@ namespace Commons.Startup
     public class ServiceOptions
     {
         public string ServiceName { get; set; }
-        public int ServiceIndex { get; set; }
+        public string ServiceIndex { get; set; }
         public ConsulOptions Consul { get; set; }
     }
 
@@ -74,7 +74,13 @@ namespace Commons.Startup
             var assms = AppDomain.CurrentDomain.GetAssemblies().ToList();
             builder.RegisterAssemblyTypes(assms.ToArray())
                 .Where(t => basetype.IsAssignableFrom(t) && t != basetype)
-                .AsImplementedInterfaces().InstancePerLifetimeScope();         
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            var sigtype = typeof(ISingletonDependency);
+            builder.RegisterAssemblyTypes(assms.ToArray())
+                .Where(t => sigtype.IsAssignableFrom(t) && t != sigtype)
+                .AsImplementedInterfaces().SingleInstance();
+
         }
        
         public static void ConfigMongoServices(this IServiceCollection services, IConfiguration configuration)

@@ -34,4 +34,20 @@ namespace Money.Domain.ProcessCommands
         public long AddCarry { get; private set; }
         public AddReason Reason { get; private set; }
     }
+
+    public class BuyInCommand : ProcessCommand<WrappedResponse<MoneyInfo>>
+    {
+        public BuyInCommand(long id, long minBuy, long maxBuy, AddReason reason)
+        {
+            Id = id;
+            MinBuy = minBuy;
+            MaxBuy = maxBuy;
+            Reason = reason;
+        }
+
+        public long Id { get; private set; }
+        public long MinBuy { get; private set; }
+        public long MaxBuy { get; private set; }
+        public AddReason Reason { get; private set; }
+    }
 }

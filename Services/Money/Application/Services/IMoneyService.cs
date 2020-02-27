@@ -14,5 +14,6 @@ namespace Money.Application.Services
     {
         public Task<WrappedResponse<MoneyMqResponse>> GetMoney(long id);
         public Task<WrappedResponse<MoneyMqResponse>> AddMoney(long id, long addCoins, long addCarry, AddReason reason);
+        Task<WrappedResponse<MoneyMqResponse>> BuyIn(long id, long min, long max, AddReason reason);
     }
 }

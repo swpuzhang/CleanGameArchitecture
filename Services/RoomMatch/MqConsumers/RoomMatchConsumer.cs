@@ -89,9 +89,6 @@ namespace Money.MqConsumers
             _service = service;
         }
 
-
-
-
         public override void ConsumerHandler(UserSitFailedMqEvent request)
         {
             _service.OnUserSiteFailed(request);

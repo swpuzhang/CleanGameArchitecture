@@ -15,6 +15,7 @@ using Commons.Enums;
 using CommonMessages.MqCmds;
 using MassTransit;
 using Commons.Buses.MqBus;
+using Account.Domain.Manager;
 
 namespace Account.Domain.ProcessCommands
 {
@@ -96,7 +97,7 @@ namespace Account.Domain.ProcessCommands
                    token, new MoneyInfo(moneyInfo.CurCoins + moneyInfo.Carry,
                     moneyInfo.CurDiamonds,
                     moneyInfo.MaxCoins,
-                    moneyInfo.MaxDiamonds), "192.168.1.1", true,
+                    moneyInfo.MaxDiamonds), WSHostManager.GetOneHost(), true,
                     newAccountInfo.Type);
                 }
                 else
@@ -112,7 +113,7 @@ namespace Account.Domain.ProcessCommands
                    new MoneyInfo(moneyInfo.CurCoins + moneyInfo.Carry,
                     moneyInfo.CurDiamonds,
                     moneyInfo.MaxCoins,
-                    moneyInfo.MaxDiamonds), "192.168.1.1", false, newAccountInfo.Type);
+                    moneyInfo.MaxDiamonds), WSHostManager.GetOneHost(), false, newAccountInfo.Type);
                 }
 
                 _ = _bus.RaiseEvent<LoginEvent>(new LoginEvent(Guid.NewGuid(),

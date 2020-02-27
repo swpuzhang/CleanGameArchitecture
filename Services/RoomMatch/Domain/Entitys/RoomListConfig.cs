@@ -1,4 +1,5 @@
-﻿using GameMessages.MqCmds;
+﻿using Commons.Enums;
+using GameMessages.MqCmds;
 using System;
 using System.Collections.Generic;
 using System.Text;

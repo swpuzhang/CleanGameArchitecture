@@ -7,4 +7,8 @@ namespace Commons.DiIoc
     public interface IDependency
     {
     }
+
+    public interface ISingletonDependency
+    {
+    }
 }

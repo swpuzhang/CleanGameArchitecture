@@ -1,20 +1,10 @@
-﻿using System;
+﻿using Commons.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GameMessages.MqCmds
 {
-
-    /// <summary>
-    /// 房间类型
-    /// </summary>
-    public enum RoomTypes
-    {
-        Bankruptcy,
-        Low,
-        Middle,
-        High
-    }
 
     public class RoomIdMapConfigMqCmd
     {

@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using GameMessages.MqEvents;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using RoomMatch.Infrastruct.Repository;
@@ -30,12 +31,13 @@ namespace RoomMatch
             _matchRep = matchRep;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
 
             MatchManager.Init(_configuration, _coinRangeRep, _matchRep);
             RoomManager.Init(_busControl, _configuration, _roomRep);
-            return _busControl.StartAsync(cancellationToken);
+            await _busControl.StartAsync(cancellationToken);
+            _ = _busControl.Publish<MatchingStartedMqEvent>(new MatchingStartedMqEvent(_configuration["MatchingGroup"]));
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

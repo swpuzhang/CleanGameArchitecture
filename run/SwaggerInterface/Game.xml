@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Game</name>
+    </assembly>
+    <members>
+        <member name="T:Game.Controllers.GameController">
+            <summary>
+            账号相关操作
+            </summary>
+        </member>
+        <member name="F:Game.Domain.Logic.CardColor.clubs">
+            <summary>
+            梅花
+            </summary>
+        </member>
+        <member name="F:Game.Domain.Logic.CardColor.diamond">
+            <summary>
+            方块
+            </summary>
+        </member>
+        <member name="F:Game.Domain.Logic.CardColor.heart">
+            <summary>
+            红桃
+            </summary>
+        </member>
+        <member name="F:Game.Domain.Logic.CardColor.spade">
+            <summary>
+            黑桃
+            </summary>
+        </member>
+        <member name="T:Game.ViewModels.GameInfoVm">
+            <summary>
+            玩家账号
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace CommonMessages.MqEvents
 {
-    public class HostInfoEvent
+    public class HostInfoMqEvent
     {
-        public HostInfoEvent(string host, int userCount)
+        public HostInfoMqEvent(string host, int userCount)
         {
             Host = host;
             UserCount = userCount;

@@ -7,6 +7,7 @@ using Reward.Domain.Entitys;
 using GameMessages.MqCmds;
 using MediatR;
 using Reward.ViewModels;
+using Commons.Enums;
 
 namespace Reward.Domain.Commands
 {

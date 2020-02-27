@@ -21,8 +21,9 @@ using CommonMessages.MqEvents;
 
 namespace Money.Domain.ProcessCommands
 {
-    public class MoneyCmdHandler : IRequestHandler<GetMoneyCommand, WrappedResponse<MoneyInfo>>
-        , IRequestHandler<AddMoneyCommand, WrappedResponse<MoneyInfo>>
+    public class MoneyCmdHandler : IRequestHandler<GetMoneyCommand, WrappedResponse<MoneyInfo>>,
+        IRequestHandler<BuyInCommand, WrappedResponse<MoneyInfo>>,
+        IRequestHandler<AddMoneyCommand, WrappedResponse<MoneyInfo>>
     {
         
         private readonly IMoneyRedisRepository _moneyRedisRep;
@@ -105,6 +106,50 @@ namespace Money.Domain.ProcessCommands
                 _moneyRep.ReplaceAsync(moneyInfo));
             Log.Debug($"AddMoneyCommand add end:{request.AddCoins},{request.AddCarry} {request.AggregateId} curCoins:{moneyInfo.CurCoins} curCarry:{moneyInfo.Carry}--3");
             
+            return new WrappedResponse<MoneyInfo>(ResponseStatus.Success, null,
+                new MoneyInfo(request.Id, moneyInfo.CurCoins, moneyInfo.CurDiamonds,
+                moneyInfo.MaxCoins, moneyInfo.MaxDiamonds, moneyInfo.Carry));
+
+        }
+
+        public async Task<WrappedResponse<MoneyInfo>> Handle(BuyInCommand request, CancellationToken cancellationToken)
+        {
+            using var locker = _moneyRedisRep.Locker(KeyGenTool.GenUserKey(request.Id, MoneyInfo.ClassName));
+            await locker.LockAsync();
+            Log.Debug($"AddMoneyCommand add begin:{request.MinBuy},{request.MaxBuy}, {request.AggregateId}");
+            var moneyInfo = await _moneyRedisRep.GetMoneyInfo(request.Id);
+            if (moneyInfo == null)
+            {
+                moneyInfo = await _moneyRep.FindAndAdd(request.Id,
+                    new MoneyInfo(request.Id, 0, 0, 0, 0, 0));
+            }
+
+            if (moneyInfo.CurCoins + moneyInfo.Carry < request.MinBuy)
+            {
+                return new WrappedResponse<MoneyInfo>
+                    (ResponseStatus.NoEnoughMoney, null, null);
+            }
+            long realBuy = 0;
+            if (moneyInfo.CurCoins + moneyInfo.Carry >= request.MaxBuy)
+            {
+                realBuy = request.MaxBuy;
+            }
+            else
+            {
+                realBuy = moneyInfo.CurCoins + moneyInfo.Carry;
+            }
+            long left = moneyInfo.Carry - realBuy;
+            if (left < 0)
+            {
+                moneyInfo.AddCoins(left);
+                moneyInfo.AddCarry(realBuy);
+            }
+            var moneyevent = new MoneyChangedMqEvent
+                 (moneyInfo.Id, moneyInfo.CurCoins,
+                 moneyInfo.CurDiamonds, moneyInfo.MaxCoins,
+                 moneyInfo.MaxDiamonds, 0, 0, request.Reason);
+            _ = _busCtl.Publish(moneyevent);
+            await Task.WhenAll(_moneyRedisRep.SetMoneyInfo(moneyInfo), _moneyRep.ReplaceAsync(moneyInfo));
             return new WrappedResponse<MoneyInfo>(ResponseStatus.Success, null,
                 new MoneyInfo(request.Id, moneyInfo.CurCoins, moneyInfo.CurDiamonds,
                 moneyInfo.MaxCoins, moneyInfo.MaxDiamonds, moneyInfo.Carry));

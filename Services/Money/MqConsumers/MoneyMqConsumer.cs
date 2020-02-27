@@ -31,5 +31,11 @@ namespace Money.MqConsumers
             var response = await _service.GetMoney(context.Message.Id);
             await context.RespondAsync(response);
         }
+
+        public async Task Consume(ConsumeContext<BuyInMqCmd> context)
+        {
+            var response = await _service.BuyIn(context.Message.Id, context.Message.MinBuy, context.Message.MaxBuy, context.Message.Reason);
+            await context.RespondAsync(response);
+        }
     }
 }

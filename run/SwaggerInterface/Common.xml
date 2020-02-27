@@ -115,6 +115,11 @@
             该好友没有申请
             </summary>
         </member>
+        <member name="T:Commons.Enums.RoomTypes">
+            <summary>
+            房间类型
+            </summary>
+        </member>
         <member name="T:Commons.Models.Entity">
             <summary>
             实体

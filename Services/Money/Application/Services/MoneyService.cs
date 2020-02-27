@@ -45,5 +45,16 @@ namespace Money.Application.Services
             var moneyResponse = _mapper.Map<MoneyMqResponse>(moneyInfo.Body);
             return new WrappedResponse<MoneyMqResponse>(ResponseStatus.Success, null, moneyResponse);
         }
+
+        public async Task<WrappedResponse<MoneyMqResponse>> BuyIn(long id, long minCarry, long MaxCarry, AddReason reason)
+        {
+            var moneyInfo = await _bus.SendCommand(new BuyInCommand(id, minCarry, MaxCarry, reason));
+            if (moneyInfo.ResponseStatus != ResponseStatus.Success)
+            {
+                return new WrappedResponse<MoneyMqResponse>(moneyInfo.ResponseStatus, null, null);
+            }
+            var moneyResponse = _mapper.Map<MoneyMqResponse>(moneyInfo.Body);
+            return new WrappedResponse<MoneyMqResponse>(ResponseStatus.Success, null, moneyResponse);
+        }
     }
 }
