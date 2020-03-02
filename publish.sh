@@ -1,24 +1,24 @@
 #! /bin/bash
 cd Services/Account
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Services/Money
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Services/Reward
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Services/RoomMatch
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Services/Game
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Gateways/ApiGateway
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../../Gateways/WSGateway
-dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true -o ./app
+dotnet publish -c Release -r linux-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./app --self-contained
 
 cd ../..
 mkdir -p /CleanGame/run/Services/Account
