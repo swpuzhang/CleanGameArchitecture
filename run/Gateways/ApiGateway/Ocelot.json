@@ -1,0 +1,115 @@
+{
+  "ReRoutes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Account/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "Account",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/Account/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Reward/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "Reward",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/Reward/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+	{
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/RoomMatch/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "RoomMatch",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/RoomMatch/{url}",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/Account/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "Account",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/Account/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/Money/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "Money",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/Money/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/Reward/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "Reward",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/Reward/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/RoomMatch/swagger.json",
+      "DownstreamScheme": "http",
+      "ServiceName": "RoomMatch",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/RoomMatch/swagger.json",
+      "UpstreamHttpMethod": [
+        [ "GET", "POST", "DELETE", "PUT" ]
+      ],
+      "ReRoutesCaseSensitive": false
+    }
+
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://0.0.0.0:10000",
+    "RequestIdKey": "OcRequestId",
+    "ServiceDiscoveryProvider": {
+      "Provider": "Consul",
+      "Host": "consul172-16-144-116",
+      "Port": 8500,
+      "ConfigurationKey": "Ocelot",
+      "PollingInterval": 1000
+    }
+  }
+}

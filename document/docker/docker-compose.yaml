@@ -120,11 +120,70 @@ services:
     container_name: ApiGateway172-16-144-116
     restart: always
     privileged: true
-    hostname: Reward172-16-144-116
+    hostname: ApiGateway172-16-144-116
     volumes:
       - "/CleanGame/run/Gateways/ApiGateway:/CleanGameArchitecture/run/Gateways/ApiGateway"
     ports:
       - "10000:10000"
+    networks:
+      - share-network
+      
+  WSGateway:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
+    working_dir: /CleanGameArchitecture/run/Gateways/WSGateway/
+    command: "./WSGateway"
+    container_name: WSGateway172-16-144-116
+    restart: always
+    privileged: true
+    hostname: WSGateway172-16-144-116
+    volumes:
+      - "/CleanGame/run/Gateways/WSGateway:/CleanGameArchitecture/run/Gateways/WSGateway"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
+    ports:
+      - "11000:11000"
+    networks:
+      - share-network
+      
+  RoomMatch:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
+    working_dir: /CleanGameArchitecture/run/Services/RoomMatch
+    command: "./RoomMatch"
+    container_name: RoomMatch172-16-144-116
+    restart: always
+    privileged: true
+    hostname: RoomMatch172-16-144-116
+    volumes:
+      - "/CleanGame/run/Services/RoomMatch:/CleanGameArchitecture/run/Services/RoomMatch"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
+    networks:
+      - share-network
+      
+  Game:
+    image: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on: 
+      - consul
+      - rabbitmq
+      - mongodb
+      - redis
+    working_dir: /CleanGameArchitecture/run/Services/Game
+    command: "./Game"
+    container_name: RoomMatch172-16-144-116
+    restart: always
+    privileged: true
+    hostname: RoomMatch172-16-144-116
+    volumes:
+      - "/CleanGame/run/Services/Game:/CleanGameArchitecture/run/Services/Game"
+      - "/CleanGame/run/SwaggerInterface:/CleanGameArchitecture/run/SwaggerInterface"
     networks:
       - share-network
       
