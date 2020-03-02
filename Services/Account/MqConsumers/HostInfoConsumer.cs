@@ -11,7 +11,7 @@ namespace Account.MqConsumers
     public class HostInfoConsumer :
         IConsumer<HostInfoMqEvent>
     {
-        private IMqService _service;
+        private readonly IMqService _service;
 
         public HostInfoConsumer(IMqService service)
         {

@@ -34,7 +34,7 @@ namespace Game.Domain.Manager
             matchingGroup = configuration["Service:ServiceIndex"];
             _mqManager = mqManager;
             _bus = bus;
-            MatchingUri = mqcfg["Mathcing"];
+            MatchingUri = mqcfg["Match"];
             
             _mapper = mapper;
         }

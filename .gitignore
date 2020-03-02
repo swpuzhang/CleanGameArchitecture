@@ -67,3 +67,8 @@
 /CommonModels/CommonModels/obj
 /Services/Game/bin/Debug/netcoreapp3.1
 /Services/Game/obj
+/Gateways/ApiGateway/ApiGateway_logs
+/Gateways/WSGateway/WSGateway_logs
+/Services/Account/Account_logs
+/Services/Game/Game_logs
+/Services/Money/Money_logs

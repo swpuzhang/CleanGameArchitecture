@@ -54,7 +54,7 @@ namespace Game
                 x.AddRequestClient<GetMoneyMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
                 x.AddRequestClient<BuyInMqCmd>(new Uri($"{rabbitCfg["Uri"]}Money"));
                 x.AddRequestClient<GetAccountInfoMqCmd>(new Uri($"{rabbitCfg["Uri"]}Account"));
-                x.AddRequestClient<UserApplySitMqCmd>(new Uri($"{rabbitCfg["Uri"]}{rabbitCfg["Mathcing"]}"));
+                x.AddRequestClient<UserApplySitMqCmd>(new Uri($"{rabbitCfg["Uri"]}{rabbitCfg["Match"]}"));
             });
         }
 

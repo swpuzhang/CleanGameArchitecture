@@ -1,6 +1,7 @@
 ﻿using CommonMessages.MqEvents;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using WSGateway.Manager;
 
 namespace WSGateway
 {
-    public class HostedService
+    public class HostedService : IHostedService
     {
         private readonly IBusControl _busControl;
         private Timer _timer;

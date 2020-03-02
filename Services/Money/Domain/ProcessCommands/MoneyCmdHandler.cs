@@ -129,7 +129,7 @@ namespace Money.Domain.ProcessCommands
                 return new WrappedResponse<MoneyInfo>
                     (ResponseStatus.NoEnoughMoney, null, null);
             }
-            long realBuy = 0;
+            long realBuy;
             if (moneyInfo.CurCoins + moneyInfo.Carry >= request.MaxBuy)
             {
                 realBuy = request.MaxBuy;

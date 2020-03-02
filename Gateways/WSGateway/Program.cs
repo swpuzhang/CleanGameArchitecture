@@ -2,45 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Commons.LogConfig;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.DotNet.PlatformAbstractions;
+using Commons.Startup;
 using Serilog;
-using Commons.Threading;
+using Commons.LogConfig;
+using Autofac.Extensions.DependencyInjection;
+
 
 namespace WSGateway
 {
     public class Program
     {
-        public static readonly string AppName = typeof(Program).Namespace;
 
+        public static readonly string AppName = typeof(Program).Namespace;
         public static void Main(string[] args)
         {
-            var config = GetConfiguration(args);
+            var config = ConfigStartup.GetConfiguration(args);
             Log.Logger = LogConfig.CreateSerilogLogger(config, AppName);
-
-            Log.Information("CreateWebHostBuilder ({ApplicationContext})...", "Account");
-            CreateWebHostBuilder(args, config).Build().Run();
+            Log.Information("CreateHostBuilder ({ApplicationContext})...", AppName);
+            CreateHostBuilder(args, config).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IConfiguration configuratioin) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(configuratioin)
-                .UseSerilog()
-                .UseStartup<Startup>();
-
-        private static IConfiguration GetConfiguration(string[] args)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(ApplicationEnvironment.ApplicationBasePath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .AddCommandLine(args);
-            return builder.Build();
-        }
+        public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuratioin) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseSerilog();
+                    webBuilder.UseConfiguration(configuratioin);
+                    webBuilder.UseUrls($"http://{configuratioin["BindIp"]}:{configuratioin["Port"]}");
+                });
     }
 }

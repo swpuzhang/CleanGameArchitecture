@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Commons.Startup;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using WSGateway.Hubs;
 using WSGateway.Mapper;
 
@@ -35,13 +37,20 @@ namespace WSGateway
             ConfigStartup.ConfigAutoMapperServices(services, typeof(MappingProfile));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void ConfigureContainer(ContainerBuilder builder)
         {
-            if (env.IsDevelopment())
+            ConfigStartup.ConfigureCommonServices(builder);
+            ConfigStartup.ConfigMassTransitSerivces(builder, Configuration, typeof(Startup).Assembly, x =>
             {
-                app.UseDeveloperExceptionPage();
-            }
+               
+            });
+            builder.RegisterType<HostedService>().As<IHostedService>().SingleInstance();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment _)
+        {
+            ConfigStartup.ConfigureCommon(app, Configuration);
 
             app.UseRouting();
 
